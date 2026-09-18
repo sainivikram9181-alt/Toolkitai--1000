@@ -1,86 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ToolkitAI - 1000+ AI Tools Directory + Free Online Tools</title>
-<meta name="description" content="Discover 1000+ AI tools for Chat, Image, Video, Writing, Coding. Free Image Compressor, PDF Merger, QR Generator, BG Remover. List your company. Install as App.">
-<meta property="og:title" content="ToolkitAI - 1000+ AI Tools">
-<meta property="og:description" content="1000+ AI Tools Directory + Free Utilities + Company Listing + Installable App">
-<meta property="og:url" content="https://toolkitai.in">
-<meta name="robots" content="index,follow">
-<link rel="canonical" href="https://toolkitai.in/">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ToolkitAI - 1 Lakh AI Tools</title>
 <script src="https://cdn.tailwindcss.com"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-<script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
-<style>
-body{background:#0a0a0a;color:#fff;font-family:system-ui}
-.card{background:#121212;border:1px solid #262626;border-radius:20px}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.9);backdrop-filter:blur(12px);z-index:200;display:none;padding:16px;overflow:auto}
-.box{background:#18181b;border:1px solid #27272a;border-radius:20px;max-width:700px;margin:30px auto;padding:20px}
-</style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&display=swap'); body{font-family:'Space Grotesk',sans-serif}</style>
 </head>
-<body>
-<div style="height:3px;background:#22c55e"></div>
-<header style="position:sticky;top:0;z-index:50;background:rgba(0,0,0,.9);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.1);padding:12px 16px;display:flex;justify-content:space-between;align-items:center">
-<div style="display:flex;gap:10px;align-items:center"><div style="width:36px;height:36px;background:#fff;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#000;font-weight:900">T</div><b>Toolkit<span style="color:#22c55e">AI</span> <span style="font-size:10px;background:#22c55e;color:#000;padding:2px 6px;border-radius:20px;margin-left:4px">1000+</span></b></div>
-<div style="display:flex;gap:8px"><button onclick="document.getElementById('listModal').style.display='block'" style="background:#fff;color:#000;font-weight:700;padding:8px 14px;border-radius:20px;font-size:12px">+ List Tool</button><button onclick="alert('Chrome ke 3 dot > Add to Home Screen dabao, app install ho jayega')" style="background:#22c55e;color:#000;font-weight:700;padding:8px 14px;border-radius:20px;font-size:12px">⬇ Install</button></div>
-</header>
+<body class="bg-[#0A0A0F] text-white">
+<header class="flex justify-between p-5 max-w-7xl mx-auto items-center"><div class="font-bold text-2xl">ToolkitAI 🚀</div><div class="bg-[#1A1A22] border border-[#2A2A32] px-4 py-2 rounded-full text-sm">1,00,000+ Tools LIVE</div></header>
 
-<main style="max-width:1200px;margin:0 auto;padding:16px">
-<div style="background:#121212;border:1px solid #262626;border-radius:24px;padding:20px;margin-bottom:16px">
-<h1 style="font-size:32px;font-weight:900;line-height:1.1">1000+ AI Tools,<br><span style="color:#22c55e">One Powerful App</span></h1>
-<p style="color:rgba(255,255,255,.5);margin-top:8px;font-size:14px">Search directory + Use free utilities + List your company + Install as app</p>
-<div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap">
-<input id="searchInput" oninput="filterTools()" placeholder="Search 1000 tools... e.g. ChatGPT, image, video" style="flex:1;min-width:200px;background:#000;border:1px solid rgba(255,255,255,.15);border-radius:20px;padding:12px 16px;color:#fff;outline:none">
-<select id="catFilter" onchange="filterTools()" style="background:#000;border:1px solid rgba(255,255,255,.15);border-radius:20px;padding:12px;color:#fff"><option value="all">All Categories</option><option>Chat</option><option>Image</option><option>Video</option><option>Audio</option><option>Writing</option><option>Coding</option><option>Productivity</option><option>Marketing</option></select>
+<section class="text-center py-10 px-4">
+<h1 class="text-5xl md:text-7xl font-bold leading-tight">World's First<br><span class="bg-gradient-to-r from-violet-400 to-fuchsia-400 bg-clip-text text-transparent">Play Store for AI</span></h1>
+<p class="text-gray-400 mt-4">Search from 1 Lakh AI tools</p>
+<input id="search" placeholder="Search 1 Lakh tools... (e.g. ChatGPT, Image Gen)" class="mt-8 w-full max-w-2xl bg-[#1A1A22] border border-[#2A2A32] rounded-full py-4 px-6 focus:border-violet-500 outline-none">
+<div class="flex gap-2 justify-center mt-6 flex-wrap" id="cats">
+<button onclick="filterCat('all')" class="catBtn bg-white text-black px-5 py-2 rounded-full font-bold">All</button>
+<button onclick="filterCat('Productivity')" class="catBtn bg-[#1A1A22] px-5 py-2 rounded-full">Productivity</button>
+<button onclick="filterCat('Image')" class="catBtn bg-[#1A1A22] px-5 py-2 rounded-full">Image</button>
+<button onclick="filterCat('Writing')" class="catBtn bg-[#1A1A22] px-5 py-2 rounded-full">Writing</button>
+<button onclick="filterCat('Video')" class="catBtn bg-[#1A1A22] px-5 py-2 rounded-full">Video</button>
+<button onclick="filterCat('Coding')" class="catBtn bg-[#1A1A22] px-5 py-2 rounded-full">Coding</button>
+<button onclick="filterCat('Business')" class="catBtn bg-[#1A1A22] px-5 py-2 rounded-full">Business</button>
 </div>
-<div style="margin-top:8px;font-size:11px;color:rgba(255,255,255,.4)"><span id="toolCount">1000</span> tools • <span id="companyCount">0</span> companies listed today</div>
-</div>
+</section>
 
-<div style="display:flex;gap:8px;margin-bottom:14px">
-<button onclick="showTab('dir')" id="t1" style="background:#22c55e;color:#000;font-weight:700;padding:8px 16px;border-radius:20px;font-size:13px">📚 AI Directory (1000)</button>
-<button onclick="showTab('util')" id="t2" style="background:#1a1a1a;border:1px solid rgba(255,255,255,.1);padding:8px 16px;border-radius:20px;font-size:13px;color:#fff">🛠️ Utilities (6)</button>
-</div>
-
-<div id="dir" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px"></div>
-<div id="moreWrap" style="text-align:center;margin-top:14px"><button onclick="loadMore()" id="lmBtn" style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.1);padding:8px 18px;border-radius:20px;font-size:13px;color:#fff">Load More Tools</button></div>
-<div id="util" style="display:none;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px">
-<div class="card" style="padding:18px;cursor:pointer" onclick="openM('c')"><div style="width:44px;height:44px;background:#1a2e1d;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:12px">🖼️</div><b>Image Compressor ↗</b><p style="font-size:12px;color:rgba(255,255,255,.5);margin-top:4px">Shrink JPG/PNG</p></div>
-<div class="card" style="padding:18px;cursor:pointer" onclick="openM('p')"><div style="width:44px;height:44px;background:#1a2e1d;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:12px">📄</div><b>PDF Merger ↗</b><p style="font-size:12px;color:rgba(255,255,255,.5);margin-top:4px">Combine PDFs</p></div>
-<div class="card" style="padding:18px;cursor:pointer" onclick="openM('q')"><div style="width:44px;height:44px;background:#1a2e1d;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:12px">🔳</div><b>QR Generator ↗</b><p style="font-size:12px;color:rgba(255,255,255,.5);margin-top:4px">QR for links/UPI</p></div>
-</div>
-</main>
-
-<div id="listModal" class="modal"><div class="box"><div style="display:flex;justify-content:space-between;margin-bottom:12px"><b>List Your Company Tool</b><button onclick="closeM()" style="background:rgba(255,255,255,.1);padding:4px 10px;border-radius:20px">✕</button></div><input id="cn" placeholder="Tool Name" style="width:100%;background:#000;border:1px solid rgba(255,255,255,.1);padding:10px;border-radius:12px;margin-bottom:8px;color:#fff"><input id="cl" placeholder="https://yourtool.com" style="width:100%;background:#000;border:1px solid rgba(255,255,255,.1);padding:10px;border-radius:12px;margin-bottom:8px;color:#fff"><input id="cd" placeholder="Short description" style="width:100%;background:#000;border:1px solid rgba(255,255,255,.1);padding:10px;border-radius:12px;margin-bottom:8px;color:#fff"><select id="cc" style="width:100%;background:#000;border:1px solid rgba(255,255,255,.1);padding:10px;border-radius:12px;margin-bottom:12px;color:#fff"><option>Chat</option><option>Image</option><option>Video</option><option>Audio</option><option>Writing</option><option>Coding</option><option>Productivity</option><option>Marketing</option></select><button onclick="addC()" style="width:100%;background:#22c55e;color:#000;font-weight:700;padding:12px;border-radius:20px">+ Add to Directory</button></div></div>
-
-<div id="mc" class="modal"><div class="box"><div style="display:flex;justify-content:space-between"><b>Image Compressor</b><button onclick="closeM()" style="background:rgba(255,255,255,.1);padding:4px 10px;border-radius:20px">✕</button></div><input type="file" id="ci" accept="image/*" style="width:100%;background:#000;border:1px solid rgba(255,255,255,.1);padding:10px;border-radius:12px;margin:10px 0"><button onclick="doC()" style="background:#22c55e;color:#000;font-weight:700;padding:8px 16px;border-radius:20px">Compress</button><a id="cdl" style="display:none;background:#fff;color:#000;padding:8px 16px;border-radius:20px;margin-left:8px" download="compressed.jpg">Download</a><img id="cp" style="max-width:100%;margin-top:10px;border-radius:12px;display:none"></div></div>
-
-<div id="mp" class="modal"><div class="box"><div style="display:flex;justify-content:space-between"><b>PDF Merger</b><button onclick="closeM()" style="background:rgba(255,255,255,.1);padding:4px 10px;border-radius:20px">✕</button></div><input type="file" id="pi" multiple accept="application/pdf" style="width:100%;background:#000;border:1px solid rgba(255,255,255,.1);padding:10px;border-radius:12px;margin:10px 0"><p id="pl" style="font-size:12px;color:rgba(255,255,255,.5)"></p><button onclick="doP()" style="background:#22c55e;color:#000;font-weight:700;padding:8px 16px;border-radius:20px;margin-top:8px">Merge</button><a id="pdl" style="display:none;background:#fff;color:#000;padding:8px 16px;border-radius:20px;margin-left:8px" download="merged.pdf">Download</a></div></div>
-
-<div id="mq" class="modal"><div class="box"><div style="display:flex;justify-content:space-between"><b>QR Generator</b><button onclick="closeM()" style="background:rgba(255,255,255,.1);padding:4px 10px;border-radius:20px">✕</button></div><input id="qi" placeholder="Link / UPI / Text" style="width:100%;background:#000;border:1px solid rgba(255,255,255,.1);padding:10px;border-radius:12px;margin:10px 0;color:#fff"><button onclick="doQ()" style="background:#22c55e;color:#000;font-weight:700;padding:8px 16px;border-radius:20px">Generate</button><div id="qo" style="margin-top:12px;background:#fff;padding:12px;display:inline-block;border-radius:12px"></div></div></div>
+<div id="grid" class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-7xl mx-auto px-4"></div>
+<div class="text-center py-10"><button id="loadMore" class="bg-violet-600 hover:bg-violet-700 px-10 py-3 rounded-full font-bold">Load More Tools</button><p id="status" class="text-gray-500 mt-3 text-sm"></p></div>
 
 <script>
-function showTab(t){document.getElementById('dir').style.display=t==='dir'?'grid':'none';document.getElementById('moreWrap').style.display=t==='dir'?'block':'none';document.getElementById('util').style.display=t==='util'?'grid':'none';}
-function openM(id){document.getElementById('m'+id).style.display='block'}function closeM(){document.querySelectorAll('.modal').forEach(m=>m.style.display='none')}
+const SUPABASE_URL = 'https://wegakcebrpkwfmamfsvo.supabase.co'; 
+const SUPABASE_KEY = 'sb_publishable_BzGl6R4HFUdl30N03E6QRg_K5uBsUpN';
+const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+let page=0, cat='all', q='';
 
-let all=[];const base=[{n:'ChatGPT',c:'Chat'},{n:'Claude',c:'Chat'},{n:'Gemini',c:'Chat'},{n:'Midjourney',c:'Image'},{n:'DALL-E',c:'Image'},{n:'Runway',c:'Video'},{n:'ElevenLabs',c:'Audio'},{n:'Copy.ai',c:'Writing'},{n:'Cursor',c:'Coding'},{n:'Notion AI',c:'Productivity'},{n:'Canva AI',c:'Image'},{n:'Perplexity',c:'Chat'}];
-for(let i=0;i<1000;i++){let b=base[i%base.length];all.push({name:b.n+' '+(Math.floor(i/10)+1),cat:b.c,link:'https://'+b.n.toLowerCase().replace(/ /g,'')+'.com',rate:(4+Math.random()).toFixed(1)})}
-let vis=80;let filt=all;
-function render(l){document.getElementById('dir').innerHTML=l.slice(0,vis).map(t=>'<a href="'+t.link+'" target="_blank" style="background:#18181b;border:1px solid #27272a;border-radius:14px;padding:12px;display:block;text-decoration:none;color:#fff"><div style="display:flex;justify-content:space-between"><span style="font-size:9px;border:1px solid rgba(255,255,255,.15);border-radius:20px;padding:2px 6px;color:rgba(255,255,255,.4)">'+t.cat+'</span><span style="font-size:10px;color:#22c55e">★ '+t.rate+'</span></div><div style="font-weight:700;font-size:13px;margin-top:8px">'+t.name+'</div><div style="font-size:11px;color:rgba(255,255,255,.3);margin-top:6px">Visit ↗</div></a>').join('');document.getElementById('toolCount').innerText=l.length}
-function filterTools(){let q=document.getElementById('searchInput').value.toLowerCase();let cat=document.getElementById('catFilter').value;filt=all.filter(t=>(t.name.toLowerCase().includes(q))&&(cat==='all'||t.cat===cat));vis=80;render(filt)}
-function loadMore(){vis+=80;render(filt);if(vis>=filt.length)document.getElementById('lmBtn').style.display='none'}
-render(all);
-
-function addC(){let n=document.getElementById('cn').value,l=document.getElementById('cl').value;if(!n||!l)return alert('Name + Link bharo');all.unshift({name:n,cat:document.getElementById('cc').value,link:l,rate:'5.0'});closeM();render(all);document.getElementById('companyCount').innerText=parseInt(document.getElementById('companyCount').innerText)+1;alert('✅ Tool listed! Ab sabse upar dikhega');}
-
-let cf;document.getElementById('ci').addEventListener('change',e=>{cf=e.target.files[0];let r=new FileReader();r.onload=ev=>{let im=document.getElementById('cp');im.src=ev.target.result;im.style.display='block'};r.readAsDataURL(cf)});
-function doC(){if(!cf)return alert('Image select karo');let img=new Image();img.onload=()=>{let c=document.createElement('canvas');c.width=img.width;c.height=img.height;c.getContext('2d').drawImage(img,0,0);c.toBlob(b=>{let u=URL.createObjectURL(b);document.getElementById('cdl').href=u;document.getElementById('cdl').style.display='inline-block';document.getElementById('cp').src=u},'image/jpeg',0.7)};img.src=URL.createObjectURL(cf)}
-
-let pfs=[];document.getElementById('pi').addEventListener('change',e=>{pfs=[...e.target.files];document.getElementById('pl').innerText=pfs.map(f=>f.name).join(', ')});
-async function doP(){if(pfs.length<2)return alert('Kam se kam 2 PDF select karo');let m=await PDFLib.PDFDocument.create();for(let f of pfs){let b=await f.arrayBuffer();let pdf=await PDFLib.PDFDocument.load(b);let pg=await m.copyPages(pdf,pdf.getPageIndices());pg.forEach(p=>m.addPage(p))}let by=await m.save();let blob=new Blob([by],{type:'application/pdf'});let u=URL.createObjectURL(blob);let a=document.getElementById('pdl');a.href=u;a.style.display='inline-block'}
-
-function doQ(){let t=document.getElementById('qi').value;if(!t)return alert('Text daalo');document.getElementById('qo').innerHTML='';new QRCode(document.getElementById('qo'),{text:t,width:160,height:160})}
+async function load(reset=false){
+ if(reset){page=0; document.getElementById('grid').innerHTML='';}
+ document.getElementById('status').innerText='Loading 1 Lakh tools...';
+ let query = client.from('tools').select('*').order('id').range(page*40, (page+1)*40-1);
+ if(cat!='all') query=query.eq('category',cat);
+ if(q) query=query.ilike('name','%'+q+'%');
+ const {data, error} = await query;
+ if(error){ document.getElementById('status').innerText='Error: '+error.message; return; }
+ if(data.length==0 && page==0) document.getElementById('status').innerText='No tools found. Category change karo.';
+ data.forEach(t=>{
+  document.getElementById('grid').innerHTML+=`
+  <div class="bg-[#12121A] border border-[#222230] rounded-2xl p-4 hover:border-violet-500/50 transition">
+  <div class="flex justify-between text-[11px]"><span class="bg-[#1E1E2E] px-2 py-1 rounded-full">${t.category||'AI'}</span><span class="text-yellow-400">★ ${Number(t.rating||4.5).toFixed(1)}</span></div>
+  <h3 class="font-bold mt-3 truncate text-[15px]">${t.name}</h3>
+  <p class="text-[11px] text-gray-400 mt-1 line-clamp-2 h-8">${t.short_desc||''}</p>
+  <div class="flex justify-between items-center mt-3"><span class="text-[10px] bg-violet-500/20 text-violet-300 px-2 py-1 rounded">${t.pricing||'Free'}</span><a href="${t.website_url}" target="_blank" class="bg-white text-black text-[11px] font-bold px-3 py-1.5 rounded-full">Visit →</a></div>
+  </div>`;
+ });
+ document.getElementById('status').innerText=`Showing ${ (page+1)*40 } / 100000 tools - ${cat} ${q ? 'for '+q : ''}`;
+ page++;
+}
+function filterCat(c){
+ cat=c;
+ document.querySelectorAll('.catBtn').forEach(b=>{b.className='catBtn bg-[#1A1A22] px-5 py-2 rounded-full';});
+ event.target.className='catBtn bg-white text-black px-5 py-2 rounded-full font-bold';
+ load(true);
+}
+document.getElementById('search').oninput=e=>{q=e.target.value; load(true);}
+document.getElementById('loadMore').onclick=()=>load();
+load(true);
 </script>
 </body>
 </html>
