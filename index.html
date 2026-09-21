@@ -1,69 +1,173 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="google-site-verification" content="V5OGhqnZZGYOsxRNCHSIix2_fkxRXpdXoi3TEzd54Tk" />
-<title>ToolkitAI - 1 Lakh AI Tools</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<style>@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&display=swap'); body{font-family:'Space Grotesk',sans-serif}</style>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ToolkitAI - World's First Play Store for AI</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui}
+body{background:#0a0a0f;color:#fff}
+.header{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:#111119;position:sticky;top:0;z-index:10}
+.logo{font-weight:800;font-size:20px}
+.btn-launch{background:#a855f7;color:#fff;border:none;padding:8px 18px;border-radius:20px;font-weight:700;cursor:pointer}
+.tabs{display:flex;gap:8px;padding:12px;background:#12121a;justify-content:center;position:sticky;top:56px;z-index:9}
+.tab{padding:10px 22px;border-radius:20px;border:1px solid #2a2a3a;background:#1a1a2a;cursor:pointer;color:#aaa}
+.tab.active{background:#a855f7;color:#fff;border-color:#a855f7}
+.banner{margin:16px;background:linear-gradient(135deg,#1a102e,#2a1a4a);border-radius:24px;padding:24px;text-align:center;border:1px solid #3a2a6a}
+.banner h1{font-size:28px;line-height:1.2}
+.banner h1 span{color:#a855f7}
+.filters{display:flex;gap:8px;padding:12px;overflow-x:auto}
+.f{padding:8px 16px;border-radius:20px;border:1px solid #333;background:#1e1e2e;white-space:nowrap;cursor:pointer}
+.f.active{background:#fff;color:#000}
+.tools{padding:12px;display:grid;gap:12px}
+.card{background:#1a1a26;border:1px solid #2a2a3a;border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:10px}
+.card-top{display:flex;gap:12px;align-items:center}
+.icon{width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,#a855f7,#6d28d9);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:22px}
+.install{margin-left:auto;background:#a855f7;color:#fff;border:none;padding:8px 16px;border-radius:20px;cursor:pointer}
+.chat-box{display:none;padding:16px;height:75vh;flex-direction:column}
+.chat-box.active{display:flex}
+.msgs{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:10px;padding-bottom:10px}
+.msg{padding:12px 16px;border-radius:16px;max-width:85%;white-space:pre-wrap;line-height:1.4}
+.user{align-self:flex-end;background:#a855f7}
+.ai{align-self:flex-start;background:#1e1e2e;border:1px solid #2a2a3a}
+.input-area{display:flex;gap:8px;margin-top:10px}
+.input-area input{flex:1;padding:14px;border-radius:24px;border:1px solid #333;background:#1a1a2a;color:#fff}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px}
+.stat{background:#15151f;border-radius:16px;padding:14px;text-align:center}
+.stat b{color:#22c55e;font-size:22px;display:block}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.8);display:none;align-items:center;justify-content:center;z-index:99}
+.modal.active{display:flex}
+.modal-box{background:#1a1a2a;padding:20px;border-radius:16px;width:90%;max-width:400px}
+.modal-box input{width:100%;padding:10px;margin:8px 0;border-radius:8px;border:1px solid #333;background:#111;color:#fff}
+</style>
 </head>
-<body class="bg-[#0A0A0F] text-white">
-<header class="flex justify-between p-5 max-w-7xl mx-auto items-center"><div class="font-bold text-2xl">ToolkitAI 🚀</div><div class="bg-[#1A1A22] border border-[#2A2A32] px-4 py-2 rounded-full text-sm">1,00,000+ Tools LIVE</div></header>
+<body>
 
-<section class="text-center py-10 px-4">
-<h1 class="text-5xl md:text-7xl font-bold leading-tight">World's First<br><span class="bg-gradient-to-r from-violet-400 to-fuchsia-400 bg-clip-text text-transparent">Play Store for AI</span></h1>
-<p class="text-gray-400 mt-4">Search from 1 Lakh AI tools</p>
-<input id="search" placeholder="Search 1 Lakh tools... (e.g. ChatGPT, Image Gen)" class="mt-8 w-full max-w-2xl bg-[#1A1A22] border border-[#2A2A32] rounded-full py-4 px-6 focus:border-violet-500 outline-none">
-<div class="flex gap-2 justify-center mt-6 flex-wrap" id="cats">
-<button onclick="filterCat('all')" class="catBtn bg-white text-black px-5 py-2 rounded-full font-bold">All</button>
-<button onclick="filterCat('Productivity')" class="catBtn bg-[#1A1A22] px-5 py-2 rounded-full">Productivity</button>
-<button onclick="filterCat('Image')" class="catBtn bg-[#1A1A22] px-5 py-2 rounded-full">Image</button>
-<button onclick="filterCat('Writing')" class="catBtn bg-[#1A1A22] px-5 py-2 rounded-full">Writing</button>
-<button onclick="filterCat('Video')" class="catBtn bg-[#1A1A22] px-5 py-2 rounded-full">Video</button>
-<button onclick="filterCat('Coding')" class="catBtn bg-[#1A1A22] px-5 py-2 rounded-full">Coding</button>
-<button onclick="filterCat('Business')" class="catBtn bg-[#1A1A22] px-5 py-2 rounded-full">Business</button>
+<div class="header">
+<div class="logo">✨ ToolkitAI <span style="font-size:11px;color:#22c55e">● Founder: Vikram Saini</span></div>
+<div style="display:flex;gap:8px">
+<button class="btn-launch" onclick="openModal()">+ Launch</button>
 </div>
-</section>
+</div>
 
-<div id="grid" class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-7xl mx-auto px-4"></div>
-<div class="text-center py-10"><button id="loadMore" class="bg-violet-600 hover:bg-violet-700 px-10 py-3 rounded-full font-bold">Load More Tools</button><p id="status" class="text-gray-500 mt-3 text-sm"></p></div>
+<div class="tabs">
+<div class="tab" id="t-chat" onclick="showTab('chat')">💬 AI Chat</div>
+<div class="tab active" id="t-store" onclick="showTab('store')">🚀 AI App Store</div>
+</div>
+
+<!-- STORE -->
+<div id="store">
+<div class="banner">
+<p style="color:#a855f7;border:1px solid #a855f7;display:inline-block;padding:4px 12px;border-radius:20px;font-size:12px;margin-bottom:12px">● The Play Store for AI</p>
+<h1>World's First<br><span>Play Store for AI</span><br>1000+ AI Models</h1>
+<p style="color:#9ca3af;margin-top:10px;font-size:14px">Founder: Vikram Saini from Jaipur, Rajasthan</p>
+</div>
+<div class="filters">
+<div class="f active" onclick="filter('all',this)">All</div>
+<div class="f" onclick="filter('image',this)">Image AI</div>
+<div class="f" onclick="filter('video',this)">Video AI</div>
+<div class="f" onclick="filter('voice',this)">Voice AI</div>
+<div class="f" onclick="filter('tool',this)">Free Tools</div>
+</div>
+<div class="tools" id="toolList"></div>
+<div class="grid3">
+<div class="stat"><b>6+</b><small>Free tools</small></div>
+<div class="stat"><b>100%</b><small>No sign-up</small></div>
+<div class="stat"><b>0₹</b><small>Always free</small></div>
+</div>
+</div>
+
+<!-- CHAT REAL WITH FOUNDER LOCK -->
+<div class="chat-box" id="chat">
+<div class="msgs" id="msgs">
+<div class="msg ai">Namaste! Main Astra 6 hu, ToolkitAI ka official AI 🙏
+
+Mujhe Vikram Saini (Jaipur, Rajasthan) ne banaya hai - jo ToolkitAI ke Founder & CEO hain.
+
+Pucho "Founder kaun hai?" - main bataunga!</div>
+</div>
+<div class="input-area">
+<input id="q" placeholder="Sawal pucho...">
+<button onclick="realAsk()" style="background:#a855f7;border:none;color:#fff;padding:12px 20px;border-radius:24px;font-weight:700">Send</button>
+</div>
+</div>
+
+<!-- LIST MODAL -->
+<div class="modal" id="modal">
+<div class="modal-box">
+<h3>List Your AI Tool</h3>
+<input id="c_name" placeholder="Tool Name">
+<input id="c_cat" placeholder="Category">
+<input id="c_desc" placeholder="Description">
+<button onclick="addTool()" style="width:100%;padding:10px;background:#a855f7;border:none;border-radius:8px;color:#fff;margin-top:10px">List Now</button>
+<button onclick="closeModal()" style="width:100%;padding:8px;background:transparent;border:none;color:#aaa;margin-top:6px">Cancel</button>
+</div>
+</div>
 
 <script>
-const SUPABASE_URL = 'https://wegakcebrpkwfmamfsvo.supabase.co'; 
-const SUPABASE_KEY = 'sb_publishable_BzGl6R4HFUdl30N03E6QRg_K5uBsUpN';
-const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-let page=0, cat='all', q='';
+// FOUNDER LOCK SYSTEM PROMPT
+const SYSTEM_INFO = `You are Astra 6, official AI of ToolkitAI. 
+RULES:
+1. Founder and CEO of ToolkitAI is Vikram Saini from Jaipur, Rajasthan, India.
+2. If user asks Who is founder? CEO? Owner? Made ToolkitAI? Who made you? Always say: Vikram Saini from Jaipur, Rajasthan is the Founder & CEO of ToolkitAI, and he created Astra 6.
+3. ToolkitAI is World's First Play Store for AI with 1000+ AI Models.
+4. Be friendly, desi, Hindi+English mix. Never say you are ChatGPT or OpenAI. You are Astra 6 made by Vikram Saini.`;
 
-async function load(reset=false){
- if(reset){page=0; document.getElementById('grid').innerHTML='';}
- document.getElementById('status').innerText='Loading 1 Lakh tools...';
- let query = client.from('tools').select('*').order('id').range(page*40, (page+1)*40-1);
- if(cat!='all') query=query.eq('category',cat);
- if(q) query=query.ilike('name','%'+q+'%');
- const {data, error} = await query;
- if(error){ document.getElementById('status').innerText='Error: '+error.message; return; }
- if(data.length==0 && page==0) document.getElementById('status').innerText='No tools found. Category change karo.';
- data.forEach(t=>{
-  document.getElementById('grid').innerHTML+=`
-  <div class="bg-[#12121A] border border-[#222230] rounded-2xl p-4 hover:border-violet-500/50 transition">
-  <div class="flex justify-between text-[11px]"><span class="bg-[#1E1E2E] px-2 py-1 rounded-full">${t.category||'AI'}</span><span class="text-yellow-400">★ ${Number(t.rating||4.5).toFixed(1)}</span></div>
-  <h3 class="font-bold mt-3 truncate text-[15px]">${t.name}</h3>
-  <p class="text-[11px] text-gray-400 mt-1 line-clamp-2 h-8">${t.short_desc||''}</p>
-  <div class="flex justify-between items-center mt-3"><span class="text-[10px] bg-violet-500/20 text-violet-300 px-2 py-1 rounded">${t.pricing||'Free'}</span><a href="${t.website_url}" target="_blank" class="bg-white text-black text-[11px] font-bold px-3 py-1.5 rounded-full">Visit →</a></div>
-  </div>`;
- });
- document.getElementById('status').innerText=`Showing ${ (page+1)*40 } / 100000 tools - ${cat} ${q ? 'for '+q : ''}`;
- page++;
+let tools = [
+{name:"MidPix",cat:"image",company:"PixelForge Labs",rating:"4.9",installs:"2.4M",desc:"Generate stunning art & images"},
+{name:"Astra 6 Chat",cat:"chat",company:"ToolKitAI by Vikram Saini",rating:"5.0",installs:"10M",desc:"Real AI Chat - Founder Vikram Saini"},
+{name:"Image Compressor",cat:"tool",company:"ToolkitAI",rating:"4.8",installs:"1M",desc:"Compress images - Free tool"},
+{name:"PDF Merger",cat:"tool",company:"ToolkitAI",rating:"4.7",installs:"800K",desc:"Merge PDFs free"},
+{name:"QR Generator",cat:"tool",company:"ToolkitAI",rating:"4.8",installs:"600K",desc:"Generate QR codes"},
+{name:"VoiceAI Pro",cat:"voice",company:"Sound Labs",rating:"4.6",installs:"500K",desc:"Text to Speech"}
+];
+for(let i=0;i<200;i++){tools.push({name:`AI Tool ${i+7}`,cat:["image","video","voice","tool"][i%4],company:`Company ${i}`,rating:"4.5",installs:`${i*10}K`,desc:"Best AI tool - free to use"})}
+
+function render(list){
+document.getElementById('toolList').innerHTML = list.slice(0,60).map(t=>`
+<div class="card" data-cat="${t.cat}">
+<div class="card-top">
+<div class="icon">${t.name[0]}</div>
+<div><b>${t.name}</b><br><small style="color:#aaa">${t.company} • ⭐ ${t.rating}</small></div>
+<button class="install" onclick="if('${t.cat}'==='tool'){showTab('chat')}else{alert('${t.name} Installed!')}">Open</button>
+</div>
+<p style="color:#aaa;font-size:14px">${t.desc}</p>
+</div>`).join('');
 }
-function filterCat(c){
- cat=c;
- document.querySelectorAll('.catBtn').forEach(b=>{b.className='catBtn bg-[#1A1A22] px-5 py-2 rounded-full';});
- event.target.className='catBtn bg-white text-black px-5 py-2 rounded-full font-bold';
- load(true);
+render(tools);
+
+function showTab(which){
+document.getElementById('store').style.display = which==='store'?'block':'none';
+document.getElementById('chat').style.display = which==='chat'?'flex':'none';
+document.getElementById('chat').classList.toggle('active',which==='chat');
+document.getElementById('t-store').classList.toggle('active',which==='store');
+document.getElementById('t-chat').classList.toggle('active',which==='chat');
 }
-document.getElementById('search').oninput=e=>{q=e.target.value; load(true);}
-document.getElementById('loadMore').onclick=()=>load();
-load(true);
+function filter(cat,el){
+document.querySelectorAll('.f').forEach(f=>f.classList.remove('active'));el.classList.add('active');
+if(cat==='all')render(tools);else render(tools.filter(t=>t.cat===cat));
+}
+async function realAsk(){
+let input=document.getElementById('q');let q=input.value.trim();if(!q)return;
+let m=document.getElementById('msgs');m.innerHTML+=`<div class="msg user">${q}</div>`;input.value='';
+let id='t'+Date.now();m.innerHTML+=`<div class="msg ai" id="${id}">Astra 6 soch raha hai... 🤔</div>`;m.scrollTop=m.scrollHeight;
+try{
+let finalPrompt = SYSTEM_INFO + "\n\nUser: " + q;
+let res = await fetch('https://text.pollinations.ai/' + encodeURIComponent(finalPrompt));
+let ans = await res.text();
+document.getElementById(id).innerText = ans;
+}catch(e){document.getElementById(id).innerText="Net slow hai, fir try karo 🙏";}
+m.scrollTop=m.scrollHeight;
+}
+function openModal(){document.getElementById('modal').classList.add('active')}
+function closeModal(){document.getElementById('modal').classList.remove('active')}
+function addTool(){
+let n=document.getElementById('c_name').value;if(!n)return alert('Name likho');
+let c=document.getElementById('c_cat').value;let d=document.getElementById('c_desc').value;
+tools.unshift({name:n,cat:c.toLowerCase().includes('image')?'image':'tool',company:"Your Company",rating:"5.0",installs:"New",desc:d});
+render(tools);closeModal();showTab('store');
+}
+document.getElementById('q').addEventListener('keypress',e=>{if(e.key==='Enter')realAsk()});
+showTab('store');
 </script>
 </body>
 </html>
