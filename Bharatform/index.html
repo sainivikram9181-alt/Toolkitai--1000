@@ -1,47 +1,90 @@
 <!DOCTYPE html>
-<html lang="hi">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>BharatForm Agentic AI - Super App</title>
-<style>
-body{margin:0;font-family:sans-serif;background:#050505;color:#fff;padding:15px}
-.card{background:#111;border:1px solid #222;border-radius:16px;padding:14px}
-.btn{width:100%;background:#25D366;color:#000;padding:16px;border:none;border-radius:14px;font-weight:900;font-size:18px;margin-top:12px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:15px 0}
-input{width:100%;padding:16px;border-radius:14px;border:none;box-sizing:border-box;background:#1a1a1a;color:#fff;border:1px solid #333;font-size:16px}
-.log{margin-top:15px;background:#0e1a12;border:1px solid #25D366;color:#25D366;padding:15px;border-radius:12px;white-space:pre-line}
-.small{color:#888;font-size:12px}
-</style>
-</head>
-<body>
-<h2 style="margin:0">🇮🇳 BharatForm Agentic AI <span style="background:#25D366;color:#000;padding:3px 8px;border-radius:8px;font-size:11px">TOP SPEED</span></h2>
-<p class="small">Ek hi Agent - Sarkari Naukri + Certificate + Loan - Sab bhar dega</p>
+<html lang="hi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BharatForm - 100+ All India Agent</title>
+<style>body{margin:0;font-family:sans-serif;background:#050505;color:#fff;padding:12px}
+.search{width:100%;padding:16px;border-radius:14px;background:#1a1a1a;color:#fff;border:1px solid #333;box-sizing:border-box;font-size:16px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}
+.card{background:#111;border:1px solid #222;border-radius:14px;padding:10px;font-size:12px;line-height:1.3}
+.card b{font-size:13px}
+.btn{width:100%;background:#25D366;color:#000;padding:16px;border:none;border-radius:14px;font-weight:900;font-size:18px;margin-top:10px}
+.log{background:#0e1a12;border:1px solid #25D366;color:#25D366;padding:12px;border-radius:12px;white-space:pre-line;font-size:13px;margin-top:10px;display:none}
+.tag{background:#25D366;color:#000;padding:2px 6px;border-radius:6px;font-size:9px;font-weight:bold}
+.dash{background:#111;border:1px dashed #25D366;border-radius:14px;padding:12px;display:flex;justify-content:space-between;text-align:center;margin:10px 0}
+.dash b{font-size:20px;color:#25D366;display:block}
+.ext{border:2px solid #4285F4;background:#0a1930;border-radius:14px;padding:12px;margin:12px 0}
+</style></head><body>
+<h2>🇮🇳 BharatForm <span class="tag">100+ ALL INDIA FORMS</span></h2>
 
-<input id="task" placeholder="Bolo: Mera Udyam / SSC GD / Police / PMEGP Loan form bhar de">
+<div class="dash"><div><b id="sent">0</b><span style="font-size:10px;color:#888">Sent</span></div><div><b id="clicks">0</b><span style="font-size:10px;color:#888">Leads</span></div><div><b id="total">105</b><span style="font-size:10px;color:#888">Total Forms</span></div></div>
 
-<div class="grid">
-<div class="card" onclick="setTask('Mera Udyam MSME Registration kar de')"><b>🏭 Udyam</b><br><span class="small">MSME Certificate - 2 min</span></div>
-<div class="card" onclick="setTask('Mera PMEGP Loan 50 Lakh ka form bhar de')"><b>💰 PMEGP Loan</b><br><span class="small">50 Lakh Loan Agent</span></div>
-<div class="card" onclick="setTask('Mera Rajasthan Police Constable ka form bhar de')"><b>👮 Police</b><br><span class="small">Raj. Police 2026</span></div>
-<div class="card" onclick="setTask('Mera Jati, Mul Niwas, Aay Praman Patra banao')"><b>📄 Certificate</b><br><span class="small">E-Mitra Agent</span></div>
-<div class="card" onclick="setTask('Mera SSC GD ka form bhar de')"><b>💼 SSC GD</b><br><span class="small">SSC All Forms</span></div>
-<div class="card" onclick="setTask('Mera REET ka form bhar de')"><b>📚 REET / Patwari</b><br><span class="small">Rajasthan Forms</span></div>
-</div>
+<div class="ext"><b style="color:#4285F4">🌐 Extension Active</b><span style="font-size:11px;color:#aaa"> - Har gov.in site pe tera banner ayega</span><br>
+<button style="width:100%;background:#4285F4;color:#fff;padding:10px;border:none;border-radius:10px;font-weight:bold;margin-top:6px" onclick="alert('Extension ke liye alag folder bana diya hai - neeche bata raha hu')">⬇️ Extension Ready Hai</button></div>
 
-<button class="btn" onclick="startAgent()">🚀 AGENT KO BHEJO - ABHI BHARO</button>
-
-<div id="result" class="log" style="display:none"></div>
+<button style="width:100%;background:#111;border:1px solid #333;color:#fff;padding:10px;border-radius:10px" onclick="enablePush()">🔔 Push Notification ON Karo</button>
+<input id="task" class="search" placeholder="Search: SSC, UPSC, Railway, Police, REET, Udyam..." style="margin-top:10px">
+<div class="grid" id="formGrid"></div>
+<button class="btn" onclick="startAgent()">🚀 AGENT KO BHEJO - 8952830448</button>
+<div id="result" class="log"></div>
 
 <script>
-// --- MASTER BRAIN - 100+ Form Database (File 3 ka code yahi hai) ---
-const FORM_DB = {
-  udyam: { url: "https://udyamregistration.gov.in", name: "Udyam MSME", docs: "Aadhar + PAN", fees: 99 },
-  pmegp: { url: "https://www.kviconline.gov.in/pmegpeportal", name: "PMEGP Loan", docs: "Aadhar, Project Report, Bank Passbook", fees: 199 },
-  ssc: { url: "https://ssc.gov.in", name: "SSC GD", docs: "Photo, Sign, 10th Marksheet", fees: 99 },
-  police: { url: "https://police.rajasthan.gov.in", name: "Rajasthan Police", docs: "Aadhar, Photo", fees: 99 },
-  jati: { url: "https://emitra.rajasthan.gov.in", name: "Certificate", docs: "Aadhar, Jan Aadhar", fees: 49 },
-  reet: { url: "https://rsmssb.rajasthan.gov.in", name: "REET", docs: "BEd, Photo", fees: 99 }
+const ALL_FORMS={
+// --- SSC 10 ---
+ssc_gd:{name:"SSC GD Constable",cat:"SSC",docs:"10th,Photo",fees:100}, ssc_cgl:{name:"SSC CGL",cat:"SSC",docs:"Graduation",fees:100}, ssc_chsl:{name:"SSC CHSL",cat:"SSC",docs:"12th",fees:100}, ssc_mts:{name:"SSC MTS",cat:"SSC",docs:"10th",fees:100}, ssc_cpo:{name:"SSC CPO SI",cat:"SSC",docs:"Graduation",fees:100}, ssc_steno:{name:"SSC Stenographer",cat:"SSC",docs:"12th",fees:100}, ssc_jht:{name:"SSC JHT",cat:"SSC",docs:"Graduation",fees:100}, ssc_sel:{name:"SSC Selection Post",cat:"SSC",docs:"10th/12th",fees:100}, ssc_gd2:{name:"SSC GD 2026",cat:"SSC",docs:"10th",fees:100}, ssc_delhi:{name:"Delhi Police (SSC)",cat:"SSC",docs:"12th",fees:100},
+// --- UPSC / Defence 10 ---
+upsc:{name:"UPSC IAS/IPS",cat:"UPSC",docs:"Graduation",fees:100}, upsc_cds:{name:"UPSC CDS",cat:"Defence",docs:"Graduation",fees:200}, upsc_nda:{name:"UPSC NDA",cat:"Defence",docs:"12th",fees:100}, upsc_capf:{name:"UPSC CAPF AC",cat:"Defence",docs:"Graduation",fees:200}, upsc_epfo:{name:"UPSC EPFO",cat:"UPSC",docs:"Graduation",fees:100}, agniveer:{name:"Agniveer Army",cat:"Defence",docs:"10th",fees:0}, navy:{name:"Indian Navy SSR/MR",cat:"Defence",docs:"10th/12th",fees:0}, airforce:{name:"Airforce Agniveer Vayu",cat:"Defence",docs:"12th",fees:0}, coastguard:{name:"Coast Guard Navik",cat:"Defence",docs:"12th",fees:0}, territorial:{name:"Territorial Army",cat:"Defence",docs:"Graduation",fees:0},
+// --- Railway 10 ---
+rail_groupd:{name:"Railway Group D",cat:"Railway",docs:"10th/ITI",fees:500}, rail_ntpc:{name:"Railway NTPC",cat:"Railway",docs:"12th/Grad",fees:500}, rail_alp:{name:"Railway ALP",cat:"Railway",docs:"ITI/Diploma",fees:500}, rail_tech:{name:"Railway Technician",cat:"Railway",docs:"ITI",fees:500}, rail_je:{name:"Railway JE",cat:"Railway",docs:"Diploma/BTech",fees:500}, rail_rpf:{name:"RPF Constable/SI",cat:"Railway",docs:"10th/Grad",fees:500}, rail_para:{name:"Railway Paramedical",cat:"Railway",docs:"Diploma",fees:500}, rail_min:{name:"Railway Ministerial",cat:"Railway",docs:"12th",fees:500}, metro:{name:"Metro Rail (DMRC/JMRC)",cat:"Railway",docs:"ITI/Diploma",fees:500}, rail_apprentice:{name:"Railway Apprentice",cat:"Railway",docs:"10th/ITI",fees:100},
+// --- Bank 10 ---
+ibps_po:{name:"IBPS PO",cat:"Bank",docs:"Graduation",fees:850}, ibps_clerk:{name:"IBPS Clerk",cat:"Bank",docs:"Graduation",fees:850}, ibps_so:{name:"IBPS SO",cat:"Bank",docs:"Graduation",fees:850}, sbi_po:{name:"SBI PO",cat:"Bank",docs:"Graduation",fees:750}, sbi_clerk:{name:"SBI Clerk",cat:"Bank",docs:"Graduation",fees:750}, rbi_ass:{name:"RBI Assistant",cat:"Bank",docs:"Graduation",fees:450}, rbi_gradeb:{name:"RBI Grade B",cat:"Bank",docs:"Graduation",fees:850}, nabard:{name:"NABARD Grade A",cat:"Bank",docs:"Graduation",fees:800}, lic_aao:{name:"LIC AAO",cat:"Bank",docs:"Graduation",fees:700}, lic_ado:{name:"LIC ADO",cat:"Bank",docs:"Graduation",fees:700},
+// --- Rajasthan 15 ---
+raj_police:{name:"Rajasthan Police",cat:"Rajasthan",docs:"10th/12th",fees:100}, reet:{name:"REET / 3rd Grade",cat:"Rajasthan",docs:"BEd/BSTC",fees:100}, patwari:{name:"Patwari",cat:"Rajasthan",docs:"Grad+RSCIT",fees:100}, cet:{name:"Rajasthan CET",cat:"Rajasthan",docs:"12th/Grad",fees:100}, ldc:{name:"Rajasthan LDC",cat:"Rajasthan",docs:"12th+RSCIT",fees:100}, si:{name:"Rajasthan SI",cat:"Rajasthan",docs:"Graduation",fees:100}, forest:{name:"Vanpal / Forester",cat:"Rajasthan",docs:"12th",fees:100}, lab_ass:{name:"Lab Assistant",cat:"Rajasthan",docs:"12th Sci",fees:100}, anm_gnm:{name:"ANM/GNM",cat:"Rajasthan",docs:"12th",fees:100}, jen:{name:"Rajasthan JEN",cat:"Rajasthan",docs:"Diploma",fees:100}, aen:{name:"Rajasthan AEN",cat:"Rajasthan",docs:"BTech",fees:100}, librarian:{name:"Librarian Grade 3",cat:"Rajasthan",docs:"Lib Diploma",fees:100}, pti:{name:"PTI 3rd Grade",cat:"Rajasthan",docs:"DPEd",fees:100}, gram_sevak:{name:"Gram Sevak / VDO",cat:"Rajasthan",docs:"Graduation",fees:100}, hostel_warden:{name:"Hostel Warden",cat:"Rajasthan",docs:"Graduation",fees:100},
+// --- UP / MP / Bihar / Delhi 15 ---
+up_police:{name:"UP Police Constable",cat:"UP",docs:"12th",fees:100}, up_si:{name:"UP SI",cat:"UP",docs:"Graduation",fees:100}, up_lekhpal:{name:"UP Lekhpal",cat:"UP",docs:"12th",fees:100}, up_tet:{name:"UPTET / SuperTET",cat:"UP",docs:"BEd/BTC",fees:100}, mp_police:{name:"MP Police",cat:"MP",docs:"10th/12th",fees:100}, mp_patwari2:{name:"MP Patwari",cat:"MP",docs:"Graduation",fees:100}, mp_samvida:{name:"MP Samvida Shikshak",cat:"MP",docs:"BEd",fees:100}, bihar_police:{name:"Bihar Police",cat:"Bihar",docs:"12th",fees:100}, bihar_si2:{name:"Bihar SI",cat:"Bihar",docs:"Graduation",fees:100}, bihar_teacher:{name:"Bihar Teacher (BPSC)",cat:"Bihar",docs:"BEd",fees:100}, delhi_mcd:{name:"Delhi MCD / DSSSB",cat:"Delhi",docs:"12th/Grad",fees:100}, haryana_police:{name:"Haryana Police",cat:"Haryana",docs:"12th",fees:100}, haryana_cet2:{name:"Haryana CET",cat:"Haryana",docs:"12th/Grad",fees:100}, upsc_state:{name:"UPPSC / MPPSC / RPSC",cat:"State PSC",docs:"Graduation",fees:100}, ras:{name:"RAS / PCS",cat:"State PSC",docs:"Graduation",fees:100},
+// --- Teaching / Central 15 ---
+ctet:{name:"CTET",cat:"Teaching",docs:"BEd/BSTC",fees:1000}, kvs:{name:"KVS Teacher",cat:"Teaching",docs:"BEd",fees:1000}, nvs:{name:"NVS Teacher",cat:"Teaching",docs:"BEd",fees:1000}, dsssb_t:{name:"DSSSB Teacher",cat:"Teaching",docs:"BEd",fees:100}, ugc_net:{name:"UGC NET",cat:"Teaching",docs:"PG",fees:1150}, csir_net:{name:"CSIR NET",cat:"Teaching",docs:"PG Sci",fees:1000}, emrs:{name:"EMRS Teacher",cat:"Teaching",docs:"BEd",fees:1000}, army_school:{name:"Army Public School",cat:"Teaching",docs:"BEd",fees:500}, navodaya:{name:"Navodaya Clerk",cat:"Central",docs:"12th",fees:100}, chsl2:{name:"CHSL / DEO",cat:"Central",docs:"12th",fees:100}, postal:{name:"Post Office GDS",cat:"Central",docs:"10th",fees:100}, anganwadi:{name:"Anganwadi Worker",cat:"Yojana",docs:"10th/12th",fees:0}, asha:{name:"ASHA / CHO",cat:"Yojana",docs:"12th/ANM",fees:0}, court_clerk:{name:"High Court Clerk/LDC",cat:"Court",docs:"Graduation",fees:100}, court_judge:{name:"Judiciary / Civil Judge",cat:"Court",docs:"LLB",fees:100},
+// --- Business / Certificate / Yojana 20 ---
+udyam:{name:"Udyam MSME",cat:"Business",docs:"Aadhar/PAN",fees:99}, pmegp:{name:"PMEGP Loan 50L",cat:"Business",docs:"Project Report",fees:199}, mudra:{name:"Mudra Loan",cat:"Business",docs:"Aadhar/PAN",fees:99}, msme_loan:{name:"MSME Loan 1Cr",cat:"Business",docs:"GST/PAN",fees:199}, startup:{name:"Startup India",cat:"Business",docs:"PAN/Aadhar",fees:99}, fssai:{name:"FSSAI License",cat:"Business",docs:"Aadhar/PAN",fees:199}, gst:{name:"GST Registration",cat:"Business",docs:"PAN/Aadhar",fees:199}, iec:{name:"Import Export Code",cat:"Business",docs:"PAN",fees:199}, trade_lic:{name:"Trade License",cat:"Business",docs:"Aadhar",fees:99}, shop_act:{name:"Shop Act",cat:"Business",docs:"Aadhar",fees:99},
+pan:{name:"PAN Card",cat:"Certificate",docs:"Aadhar",fees:107}, passport:{name:"Passport Seva",cat:"Certificate",docs:"Aadhar/10th",fees:1500}, jati:{name:"Jati/Mul/Aay",cat:"Certificate",docs:"Jan Aadhar",fees:49}, voter:{name:"Voter ID",cat:"Certificate",docs:"Aadhar",fees:0}, aadhar_up:{name:"Aadhar Update",cat:"Certificate",docs:"Aadhar",fees:50}, e_shram:{name:"E-Shram Card",cat:"Yojana",docs:"Aadhar/Bank",fees:49}, pm_kisan:{name:"PM Kisan Yojana",cat:"Yojana",docs:"Khasra/Aadhar",fees:49}, pm_awas:{name:"PM Awas Yojana",cat:"Yojana",docs:"Aadhar/Jan Aadhar",fees:49}, ujjwala:{name:"Ujjwala Yojana",cat:"Yojana",docs:"BPL/Aadhar",fees:0}, ayushman:{name:"Ayushman Card",cat:"Yojana",docs:"Aadhar",fees:0}
 };
 
-function setTask(t){ document.getElementById('task').
+function renderGrid(filter=""){
+let g=document.getElementById('formGrid'); g.innerHTML="";
+let count=0;
+for(let k in ALL_FORMS){let f=ALL_FORMS[k];
+if(filter &&!f.name.toLowerCase().includes(filter) &&!f.cat.toLowerCase().includes(filter)) continue;
+count++;
+g.innerHTML+=`<div class="card" onclick="setTask('Mera ${f.name} ka form bhar de')"><span class="tag">${f.cat}</span><br><b>${f.name}</b><br><span style="color:#888">${f.docs} | ₹${f.fees}</span></div>`;
+}
+document.getElementById('total').innerText=count;
+}
+renderGrid();
+document.getElementById('task').addEventListener('input',e=>renderGrid(e.target.value.toLowerCase()));
+function setTask(t){document.getElementById('task').value=t; startAgent();}
+
+function enablePush(){
+Notification.requestPermission().then(p=>{
+if(p==='granted'){
+let s=parseInt(localStorage.getItem('bf_sent')||0)+1; localStorage.setItem('bf_sent',s); updateDash();
+new Notification("BharatForm 100+ Active 🇮🇳",{body:"105 form ka agent ON hai! 8952830448"});
+alert("Push ON - Ab 100+ form ka notification jayega");
+}});
+}
+function updateDash(){
+document.getElementById('sent').innerText=localStorage.getItem('bf_sent')||0;
+document.getElementById('clicks').innerText=localStorage.getItem('bf_clicks')||0;
+}
+updateDash();
+
+function startAgent(){
+let userTask=document.getElementById('task').value; if(!userTask) return alert('Pehle form likh');
+let low=userTask.toLowerCase(); let type='udyam';
+for(let k in ALL_FORMS){ if(low.includes(k.split('_')[0]) || ALL_FORMS[k].name.toLowerCase().includes(low.split(' ')[0])){ type=k; break; } }
+if(low.includes('police')) type='raj_police'; if(low.includes('udyam')) type='udyam'; if(low.includes('pan')) type='pan'; if(low.includes('railway')) type='rail_groupd';
+let form=ALL_FORMS[type];
+let box=document.getElementById('result'); box.style.display='block';
+box.innerHTML=`🤖 BharatForm 100+ Agent LIVE\n✅ Task: ${userTask}\n✅ Detect: ${form.name} (${form.cat})\n✅ Docs: ${form.docs}\n✅ Fees: ${form.fees} Rs\n\nWhatsApp 8952830448 pe bhej raha hu...`;
+let c=parseInt(localStorage.getItem('bf_clicks')||0)+1; localStorage.setItem('bf_clicks',c); updateDash();
+let waMsg=`Hi BharatForm 100+ Agent 👋\nMujhe ${form.name} ka form bharna hai.\nTask: ${userTask}\nCategory: ${form.cat}\nDocs: ${form.docs}\nFees: ${form.fees}`;
+setTimeout(()=>{ window.open(`https://wa.me/918952830448?text=${encodeURIComponent(waMsg)}`,"_blank"); }, 700);
+}
+</script></body></html>
