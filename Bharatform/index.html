@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BharatForm Agentic AI - Super App</title>
+<style>
+body{margin:0;font-family:sans-serif;background:#050505;color:#fff;padding:15px}
+.card{background:#111;border:1px solid #222;border-radius:16px;padding:14px}
+.btn{width:100%;background:#25D366;color:#000;padding:16px;border:none;border-radius:14px;font-weight:900;font-size:18px;margin-top:12px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:15px 0}
+input{width:100%;padding:16px;border-radius:14px;border:none;box-sizing:border-box;background:#1a1a1a;color:#fff;border:1px solid #333;font-size:16px}
+.log{margin-top:15px;background:#0e1a12;border:1px solid #25D366;color:#25D366;padding:15px;border-radius:12px;white-space:pre-line}
+.small{color:#888;font-size:12px}
+</style>
+</head>
+<body>
+<h2 style="margin:0">🇮🇳 BharatForm Agentic AI <span style="background:#25D366;color:#000;padding:3px 8px;border-radius:8px;font-size:11px">TOP SPEED</span></h2>
+<p class="small">Ek hi Agent - Sarkari Naukri + Certificate + Loan - Sab bhar dega</p>
+
+<input id="task" placeholder="Bolo: Mera Udyam / SSC GD / Police / PMEGP Loan form bhar de">
+
+<div class="grid">
+<div class="card" onclick="setTask('Mera Udyam MSME Registration kar de')"><b>🏭 Udyam</b><br><span class="small">MSME Certificate - 2 min</span></div>
+<div class="card" onclick="setTask('Mera PMEGP Loan 50 Lakh ka form bhar de')"><b>💰 PMEGP Loan</b><br><span class="small">50 Lakh Loan Agent</span></div>
+<div class="card" onclick="setTask('Mera Rajasthan Police Constable ka form bhar de')"><b>👮 Police</b><br><span class="small">Raj. Police 2026</span></div>
+<div class="card" onclick="setTask('Mera Jati, Mul Niwas, Aay Praman Patra banao')"><b>📄 Certificate</b><br><span class="small">E-Mitra Agent</span></div>
+<div class="card" onclick="setTask('Mera SSC GD ka form bhar de')"><b>💼 SSC GD</b><br><span class="small">SSC All Forms</span></div>
+<div class="card" onclick="setTask('Mera REET ka form bhar de')"><b>📚 REET / Patwari</b><br><span class="small">Rajasthan Forms</span></div>
+</div>
+
+<button class="btn" onclick="startAgent()">🚀 AGENT KO BHEJO - ABHI BHARO</button>
+
+<div id="result" class="log" style="display:none"></div>
+
+<script>
+// --- MASTER BRAIN - 100+ Form Database (File 3 ka code yahi hai) ---
+const FORM_DB = {
+  udyam: { url: "https://udyamregistration.gov.in", name: "Udyam MSME", docs: "Aadhar + PAN", fees: 99 },
+  pmegp: { url: "https://www.kviconline.gov.in/pmegpeportal", name: "PMEGP Loan", docs: "Aadhar, Project Report, Bank Passbook", fees: 199 },
+  ssc: { url: "https://ssc.gov.in", name: "SSC GD", docs: "Photo, Sign, 10th Marksheet", fees: 99 },
+  police: { url: "https://police.rajasthan.gov.in", name: "Rajasthan Police", docs: "Aadhar, Photo", fees: 99 },
+  jati: { url: "https://emitra.rajasthan.gov.in", name: "Certificate", docs: "Aadhar, Jan Aadhar", fees: 49 },
+  reet: { url: "https://rsmssb.rajasthan.gov.in", name: "REET", docs: "BEd, Photo", fees: 99 }
+};
+
+function setTask(t){ document.getElementById('task').
