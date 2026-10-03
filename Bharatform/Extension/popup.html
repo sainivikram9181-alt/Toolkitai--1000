@@ -1,12 +1,41 @@
-<body style="width:300px;background:#0a0a0a;color:#fff;padding:16px;font-family:sans-serif">
-<h3>🇮🇳 BharatForm</h3>
-<input id="name" placeholder="Full Name" style="width:100%;padding:10px;margin:5px 0">
-<input id="father" placeholder="Father Name" style="width:100%;padding:10px;margin:5px 0">
-<input id="dob" placeholder="DOB" style="width:100%;padding:10px;margin:5px 0">
-<input id="mobile" placeholder="Mobile" style="width:100%;padding:10px;margin:5px 0">
-<input id="email" placeholder="Email" style="width:100%;padding:10px;margin:5px 0">
-<button onclick="save()" style="width:100%;background:#25D366;padding:12px;border-radius:10px;font-weight:900">Save & AutoMode ON</button>
+<body style="width:320px;background:#0a0a0a;color:#fff;padding:16px;font-family:sans-serif">
+<h3>🇮🇳 BharatForm Universal</h3>
+<p style="font-size:11px;color:#aaa;margin:2px 0 10px">Ek baar bharo, 105+ Govt Jobs AutoFill</p>
+
+<input id="name" placeholder="Full Name" style="width:100%;padding:10px;margin:4px 0;border-radius:8px;border:1px solid #333;background:#111;color:#fff">
+<input id="father" placeholder="Father Name" style="width:100%;padding:10px;margin:4px 0;border-radius:8px;border:1px solid #333;background:#111;color:#fff">
+<input id="dob" placeholder="DOB - 01/01/2000" style="width:100%;padding:10px;margin:4px 0;border-radius:8px;border:1px solid #333;background:#111;color:#fff">
+<input id="mobile" placeholder="Mobile" style="width:100%;padding:10px;margin:4px 0;border-radius:8px;border:1px solid #333;background:#111;color:#fff">
+<input id="email" placeholder="Email" style="width:100%;padding:10px;margin:4px 0;border-radius:8px;border:1px solid #333;background:#111;color:#fff">
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+<input id="state" placeholder="State" style="padding:10px;border-radius:8px;border:1px solid #333;background:#111;color:#fff">
+<input id="district" placeholder="District" style="padding:10px;border-radius:8px;border:1px solid #333;background:#111;color:#fff">
+</div>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px">
+<select id="category" style="padding:10px;border-radius:8px;border:1px solid #333;background:#111;color:#fff"><option value="">Category</option><option>GEN</option><option>OBC</option><option>SC</option><option>ST</option><option>EWS</option></select>
+<select id="qualification" style="padding:10px;border-radius:8px;border:1px solid #333;background:#111;color:#fff"><option value="">Qualification</option><option>10th</option><option>12th</option><option>Graduate</option><option>Post Graduate</option></select>
+</div>
+
+<input id="address" placeholder="Full Address" style="width:100%;padding:10px;margin:8px 0 4px;border-radius:8px;border:1px solid #333;background:#111;color:#fff">
+<input id="pincode" placeholder="Pincode" style="width:100%;padding:10px;margin:4px 0;border-radius:8px;border:1px solid #333;background:#111;color:#fff">
+
+<button onclick="save()" style="width:100%;background:#25D366;color:#000;padding:13px;border-radius:12px;font-weight:900;margin-top:10px;border:0;cursor:pointer">Save & Universal AutoMode ON 🚀</button>
+<p id="status" style="font-size:11px;color:#25D366;text-align:center;margin-top:8px"></p>
+
 <script>
-function save(){let u={};['name','father','dob','mobile','email'].forEach(k=>u[k]=document.getElementById(k).value);localStorage.setItem('bharatform_user',JSON.stringify(u));alert('Saved! Ab gov.in kholo');}
+function save(){
+ let fields=['name','father','dob','mobile','email','state','district','category','qualification','address','pincode'];
+ let u={};
+ fields.forEach(k=>{let el=document.getElementById(k); if(el) u[k]=el.value});
+ localStorage.setItem('bharatform_user', JSON.stringify(u));
+ document.getElementById('status').innerText='✅ Saved! Ab har govt form auto bharega - '+Object.keys(u).filter(k=>u[k]).length+' fields';
+ setTimeout(()=>{document.getElementById('status').innerText='';},3000);
+}
+(function load(){
+ let u=JSON.parse(localStorage.getItem('bharatform_user')||'{}');
+ Object.keys(u).forEach(k=>{let el=document.getElementById(k); if(el) el.value=u[k]});
+})();
 </script>
 </body>
