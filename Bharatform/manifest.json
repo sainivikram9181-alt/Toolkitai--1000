@@ -1,14 +1,19 @@
 {
-  "name": "BharatForm - 100+ Forms",
+  "name": "BharatForm - 1 Click Form Agent",
   "short_name": "BharatForm",
-  "description": "105 Sarkari Form - SSC, UPSC, Railway, Police - 1 Click Me",
-  "start_url": "./index.html",
+  "description": "105 Sarkari Form - Mini Browser",
+  "start_url": "./browser.html",
   "display": "standalone",
   "background_color": "#050505",
   "theme_color": "#25D366",
   "icons": [
     {
-      "src": "https://cdn-icons-png.flaticon.com/512/942/942786.png",
+      "src": "https://cdn-icons-png.flaticon.com/512/888/888879.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/888/888879.png",
       "sizes": "512x512",
       "type": "image/png"
     }
