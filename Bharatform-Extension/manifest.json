@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "name": "BharatForm - Har Form Ka Agent",
+  "version": "2.0",
+  "description": "Koi bhi sarkari job site kholo, BharatForm ka banner ayega - 1 click me form bharo",
+  "permissions": ["storage"],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_end"
+    }
+  ],
+  "icons": {
+    "128": "https://cdn-icons-png.flaticon.com/512/942/942786.png"
+  }
+}
