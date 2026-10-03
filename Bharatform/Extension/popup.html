@@ -1,0 +1,12 @@
+<body style="width:300px;background:#0a0a0a;color:#fff;padding:16px;font-family:sans-serif">
+<h3>🇮🇳 BharatForm</h3>
+<input id="name" placeholder="Full Name" style="width:100%;padding:10px;margin:5px 0">
+<input id="father" placeholder="Father Name" style="width:100%;padding:10px;margin:5px 0">
+<input id="dob" placeholder="DOB" style="width:100%;padding:10px;margin:5px 0">
+<input id="mobile" placeholder="Mobile" style="width:100%;padding:10px;margin:5px 0">
+<input id="email" placeholder="Email" style="width:100%;padding:10px;margin:5px 0">
+<button onclick="save()" style="width:100%;background:#25D366;padding:12px;border-radius:10px;font-weight:900">Save & AutoMode ON</button>
+<script>
+function save(){let u={};['name','father','dob','mobile','email'].forEach(k=>u[k]=document.getElementById(k).value);localStorage.setItem('bharatform_user',JSON.stringify(u));alert('Saved! Ab gov.in kholo');}
+</script>
+</body>
