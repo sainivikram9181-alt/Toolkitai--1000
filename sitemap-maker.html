@@ -1,0 +1,8 @@
+<textarea id=o style="width:100%;height:90vh"></textarea>
+<script>
+let x='<?xml version="1.0"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
+x+='<url><loc>https://toolkitai.in/</loc></url>\n<url><loc>https://toolkitai.in/about.html</loc></url>\n<url><loc>https://toolkitai.in/contact.html</loc></url>\n<url><loc>https://toolkitai.in/disclaimer.html</loc></url>\n<url><loc>https://toolkitai.in/faq.html</loc></url>\n<url><loc>https://toolkitai.in/privacy-policy.html</loc></url>\n';
+let n=["chatgpt","claude","gemini","midjourney","leonardo","runway","pika","suno","elevenlabs","canva-ai"];
+for(let i=1;i<=5000;i++)x+=`<url><loc>https://toolkitai.in/tool.html?tool=${n[i%n.length]}-${i}</loc></url>\n`;
+x+='</urlset>';o.value=x;
+</script>
