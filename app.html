@@ -1,104 +1,117 @@
 <!DOCTYPE html><html><head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ToolkitAI - 1000 Real AI Tools</title>
+<title>ToolkitAI Store - Play Store for AI | Founder Vikram Saini</title>
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#a855f7">
 <style>
 body{background:#0a0a0a;color:#fff;font-family:sans-serif;margin:0;padding:10px}
-.header{background:#161616;padding:15px;border-radius:15px;text-align:center;border:1px solid #333}
+.header{background:linear-gradient(135deg,#161616,#1a1a2e);padding:18px;border-radius:18px;text-align:center;border:1px solid #333;box-shadow:0 0 20px rgba(168,85,247,0.2)}
+.founder{background:linear-gradient(90deg,#a855f7,#22c55e);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:bold;font-size:16px;margin:5px 0}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:15px}
-.card{background:#161616;border:1px solid #2a2a2a;border-radius:16px;padding:12px;text-align:center}
-.card h3{margin:5px 0;font-size:13px} .cat{font-size:11px;color:#888}
-.btn{width:100%;padding:8px;background:#a855f7;color:#fff;border:none;border-radius:20px;margin-top:8px;cursor:pointer}
-.btn2{background:#222;color:#a855f7;border:1px solid #a855f7}
-#viewer{position:fixed;top:0;left:0;width:100%;height:100%;background:#000;z-index:9999;display:none;flex-direction:column}
+.card{background:#161616;border:1px solid #2a2a2a;border-radius:16px;padding:12px;text-align:center;position:relative}
+.new-badge{position:absolute;top:6px;right:6px;background:#22c55e;color:#000;font-size:9px;padding:3px 7px;border-radius:10px;font-weight:bold}
+.card h3{margin:6px 0;font-size:13px} .cat{font-size:11px;color:#888}
+.btn{width:100%;padding:9px;background:#a855f7;color:#fff;border:none;border-radius:20px;margin-top:8px;cursor:pointer;font-weight:bold}
+.btn-publish{background:linear-gradient(90deg,#a855f7,#22c55e);padding:13px;font-size:15px;margin:14px 0;border-radius:25px;box-shadow:0 0 15px rgba(168,85,247,0.4)}
+#viewer,#publisher{position:fixed;top:0;left:0;width:100%;height:100%;background:#000;z-index:9999;display:none;flex-direction:column}
 #vTop{padding:12px;background:#161616;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #333}
 #vBody{flex:1;overflow:auto;padding:15px}
-input,textarea{width:92%;padding:12px;border-radius:10px;border:none;background:#222;color:#fff;margin:8px 0}
-#chatBox{height:60vh;overflow:auto;background:#161616;padding:10px;border-radius:10px;border:1px solid #333;display:flex;flex-direction:column}
-.msg{margin:8px 0;padding:8px 12px;border-radius:12px;max-width:85%}.user{background:#a855f7;align-self:flex-end;margin-left:auto}.ai{background:#222;align-self:flex-start}
+input,textarea,select{width:92%;padding:12px;border-radius:10px;border:1px solid #333;background:#222;color:#fff;margin:8px 0}
+#chatBox{height:55vh;overflow:auto;background:#161616;padding:10px;border-radius:10px;border:1px solid #333;display:flex;flex-direction:column}
+.msg{margin:8px 0;padding:10px 14px;border-radius:14px;max-width:85%;font-size:14px}.user{background:#a855f7;align-self:flex-end;margin-left:auto}.ai{background:#222;align-self:flex-start;border:1px solid #333}
 </style>
 </head><body>
 <div class="header">
-<h2>✨ ToolkitAI Store</h2><p>Founder: Vikram Saini | Jaipur</p>
-<p style="color:#22c55e">● 1000 REAL AI Tools - No External File Needed</p>
+<h2 style="margin:0">✨ ToolkitAI Store</h2>
+<p class="founder">👑 Founder: Vikram Saini | Jaipur</p>
+<p style="color:#22c55e;font-size:12px;margin:4px 0">● Play Store for AI - 1000+ Real Tools Working</p>
+<p style="color:#888;font-size:11px">Companies can Launch their AI Projects Here like Play Store</p>
+<button class="btn btn-publish" onclick="openPublisher()">🚀 Publish Your AI Tool - Free</button>
 <input id="search" placeholder="🔍 Search 1000 AI Tools..." onkeyup="render()">
+<div style="margin-top:10px;font-size:12px;color:#888">🔥 New Launches: <span id="newCount" style="color:#22c55e;font-weight:bold">0</span> | Total: 1000+ | Founder: Vikram Saini</div>
 </div>
+
 <div class="grid" id="grid"></div>
+
 <div id="viewer"><div id="vTop"><b id="vTitle"></b><button onclick="viewer.style.display='none'" style="padding:6px 14px;background:#ff3b3b;color:#fff;border:none;border-radius:10px">✕ Close</button></div><div id="vBody"></div></div>
+
+<div id="publisher">
+<div id="vTop"><b>🚀 Launch on ToolkitAI - by Vikram Saini</b><button onclick="publisher.style.display='none'" style="padding:6px 14px;background:#333;color:#fff;border:none;border-radius:10px">✕ Close</button></div>
+<div style="padding:20px;overflow:auto">
+<h3 style="margin-top:0">Play Store ki tarah apna AI Tool Publish karo!</h3>
+<p style="color:#888;font-size:13px">Founder Vikram Saini ke ToolkitAI Store pe apna Tool launch karo - 1 Lakh+ Users dekhenge!</p>
+<input id="pName" placeholder="Tool Name - Eg: Jaipur AI Chat Bot">
+<select id="pCat"><option>Chat</option><option>Image Generation</option><option>Video</option><option>Audio</option><option>Writing</option><option>Productivity</option><option>Business AI</option><option>Jaipur Special AI</option></select>
+<input id="pLink" placeholder="Your Website - https://your-ai.com">
+<input id="pCompany" placeholder="Company Name - Eg: Saini AI Labs, Jaipur">
+<textarea id="pDesc" rows="3" placeholder="Tool kya karta hai? Short description..."></textarea>
+<button class="btn btn-publish" onclick="publishTool()">✅ Publish Now on Vikram Saini Store</button>
+<div style="margin-top:15px;padding:10px;background:#161616;border-radius:10px;border:1px solid #333">
+<p style="font-size:11px;color:#aaa;margin:0">💡 <b>How it works:</b> Jaise Play Store pe App publish hota hai, waise yaha AI Tool publish hoga. Abhi Local save hoga, next update me Supabase se sabko dikhega!</p>
+</div>
+</div>
+</div>
 
 <script>
 const TEXT_API="https://text.pollinations.ai/"; const IMAGE_API="https://image.pollinations.ai/prompt/";
-const TOOLS_DATA = [
-{name:"ChatGPT Clone",category:"Chat",link:"https://chat.openai.com"},
-{name:"Midjourney Clone",category:"Image Generation",link:"https://midjourney.com"},
-{name:"DALL-E 3 Clone",category:"Image Generation",link:"https://openai.com/dall-e-3"},
-{name:"Stable Diffusion AI",category:"Image Generation",link:"https://stability.ai"},
-{name:"Leonardo AI",category:"Image Generation",link:"https://leonardo.ai"},
-{name:"Bard AI Clone",category:"Chat",link:"https://bard.google.com"},
-{name:"Claude AI",category:"Chat",link:"https://claude.ai"},
-{name:"Perplexity AI",category:"Search",link:"https://perplexity.ai"},
-{name:"Copy.ai Tool",category:"Writing",link:"https://copy.ai"},
-{name:"Jasper AI",category:"Writing",link:"https://jasper.ai"},
-{name:"Writesonic",category:"Writing",link:"https://writesonic.com"},
-{name:"Grammarly AI",category:"Writing",link:"https://grammarly.com"},
-{name:"Quillbot Paraphraser",category:"Writing",link:"https://quillbot.com"},
-{name:"AI Resume Builder",category:"Productivity",link:"#"},
-{name:"Logo Generator AI",category:"Image Generation",link:"#"},
-{name:"Background Remover AI",category:"Image Editing",link:"#"},
-{name:"Image Upscaler AI",category:"Image Editing",link:"#"},
-{name:"Video Generator AI",category:"Video",link:"#"},
-{name:"Voice Cloner AI",category:"Audio",link:"#"},
-{name:"Code Generator AI",category:"Coding",link:"#"},
-{name:"Excel Formula AI",category:"Productivity",link:"#"},
-{name:"Thumbnail Maker AI",category:"Image Generation",link:"#"},
-{name:"YouTube Script AI",category:"Writing",link:"#"},
-{name:"Instagram Caption AI",category:"Writing",link:"#"},
-{name:"Hashtag Generator AI",category:"Productivity",link:"#"},
-{name:"AI Story Writer",category:"Writing",link:"#"},
-{name:"AI Poem Generator",category:"Writing",link:"#"},
-{name:"AI Email Writer",category:"Writing",link:"#"},
-{name:"AI Translator",category:"Writing",link:"#"},
-{name:"AI Summarizer",category:"Writing",link:"#"}
+let TOOLS_DATA = JSON.parse(localStorage.getItem('vikramSainiTools') || '[]');
+const BASE_TOOLS = [
+{name:"ChatGPT Clone",category:"Chat",company:"OpenAI Clone"},{name:"Midjourney Clone",category:"Image Generation",company:"Midjourney"},
+{name:"DALL-E 3 Clone",category:"Image Generation",company:"OpenAI"},{name:"Stable Diffusion AI",category:"Image Generation",company:"Stability"},
+{name:"Leonardo AI",category:"Image Generation",company:"Leonardo"},{name:"Bard AI Clone",category:"Chat",company:"Google Clone"},
+{name:"Claude AI",category:"Chat",company:"Anthropic Clone"},{name:"Perplexity AI",category:"Search",company:"Perplexity"},
+{name:"Copy.ai Tool",category:"Writing",company:"Copy.ai"},{name:"Jasper AI",category:"Writing",company:"Jasper"},
+{name:"Writesonic",category:"Writing",company:"Writesonic"},{name:"Grammarly AI",category:"Writing",company:"Grammarly"},
+{name:"Quillbot Paraphraser",category:"Writing",company:"Quillbot"},{name:"AI Resume Builder",category:"Productivity",company:"ToolkitAI"},
+{name:"Logo Generator AI",category:"Image Generation",company:"ToolkitAI"},{name:"Background Remover AI",category:"Image Editing",company:"ToolkitAI"},
+{name:"Image Upscaler AI",category:"Image Editing",company:"ToolkitAI"},{name:"Video Generator AI",category:"Video",company:"ToolkitAI"},
+{name:"Voice Cloner AI",category:"Audio",company:"ToolkitAI"},{name:"Code Generator AI",category:"Coding",company:"ToolkitAI"}
 ];
-for(let i=1;i<=970;i++){TOOLS_DATA.push({name:`AI Tool #${i+30}`,category:i%3==0?"Image Generation":(i%2==0?"Chat":"Writing"),link:"#"});}
-
+for(let i=1;i<=980;i++){BASE_TOOLS.push({name:`AI Tool #${i+20}`,category:i%3==0?"Image Generation":(i%2==0?"Chat":"Writing"),company:"ToolkitAI by Vikram Saini"});}
+let ALL_TOOLS = [...TOOLS_DATA, ...BASE_TOOLS];
 let currentTool=null;
+
 function render(){
  let q=document.getElementById('search').value.toLowerCase();
  let html="";
- TOOLS_DATA.filter(t=>t.name.toLowerCase().includes(q)).slice(0,120).forEach(t=>{
-  html+=`<div class="card"><div style="font-size:24px">${t.category.includes('Image')?'🎨':'💬'}</div><h3>${t.name}</h3><div class="cat">${t.category} • REAL API</div><button class="btn" onclick="openTool('${t.name}')">⚡ Open & Use</button></div>`;
+ ALL_TOOLS.filter(t=>t.name.toLowerCase().includes(q)).slice(0,160).forEach(t=>{
+  let isNew = TOOLS_DATA.find(x=>x.name==t.name);
+  html+=`<div class="card">${isNew?'<span class="new-badge">🔥 NEW</span>':''}<div style="font-size:24px">${t.category.includes('Image')?'🎨':(t.category.includes('Video')?'🎬':'💬')}</div><h3>${t.name}</h3><div class="cat">${t.category} • ${t.company||'Vikram Saini'}</div><button class="btn" onclick="openTool('${t.name.replace(/'/g,"\\'")}')">⚡ Open & Use</button></div>`;
  });
  document.getElementById('grid').innerHTML=html;
+ document.getElementById('newCount').innerText = TOOLS_DATA.length;
 }
+
+function openPublisher(){document.getElementById('publisher').style.display='flex';}
+function publishTool(){
+ let name=document.getElementById('pName').value.trim(), cat=document.getElementById('pCat').value, link=document.getElementById('pLink').value.trim(), company=document.getElementById('pCompany').value.trim(), desc=document.getElementById('pDesc').value.trim();
+ if(!name||!company) return alert("Bhai Tool Name aur Company Name to likh!");
+ let newTool={name,category:cat,link: link||"#",company,desc,date:new Date().toLocaleDateString()};
+ TOOLS_DATA.unshift(newTool);
+ localStorage.setItem('vikramSainiTools', JSON.stringify(TOOLS_DATA));
+ ALL_TOOLS = [...TOOLS_DATA, ...BASE_TOOLS];
+ document.getElementById('publisher').style.display='none';
+ render();
+ alert(`🚀 Badhai ho ${company}! ${name} ToolkitAI Store (Founder: Vikram Saini) pe Publish ho gaya!`);
+}
+
 function openTool(name){
- currentTool=TOOLS_DATA.find(x=>x.name==name);
- document.getElementById('vTitle').innerText=currentTool.name;
+ currentTool=ALL_TOOLS.find(x=>x.name==name);
+ document.getElementById('vTitle').innerText=currentTool.name + (currentTool.company?` by ${currentTool.company}`:'');
  let body=document.getElementById('vBody');
  let isImg=currentTool.category.toLowerCase().includes('image');
  if(isImg){
-  body.innerHTML=`<h2>🎨 ${currentTool.name}</h2><textarea id="imgPrompt" rows="3" placeholder="Jaipur fort, cinematic 4k"></textarea><button class="btn" onclick="genImage()" id="imgBtn">✨ Generate Real AI Image</button><div id="imgOut" style="margin-top:15px;text-align:center"></div>`;
+  body.innerHTML=`<h2>🎨 ${currentTool.name}</h2><p style="color:#a855f7;font-weight:bold">By ${currentTool.company} | Founder Store: Vikram Saini</p><p style="color:#888">${currentTool.desc||''}</p><textarea id="imgPrompt" rows="3" placeholder="Prompt likh - Eg: Jaipur palace at night, 4k"></textarea><button class="btn" onclick="genImage()" id="imgBtn">✨ Generate Real AI Image</button><div id="imgOut" style="margin-top:15px;text-align:center"></div>${currentTool.link!='#'?`<br><a href="${currentTool.link}" target="_blank" style="color:#a855f7">🔗 Visit Official: ${currentTool.link}</a>`:''}`;
  }else{
-  body.innerHTML=`<h3>💬 ${currentTool.name}</h3><div id="chatBox"></div><div style="display:flex;gap:8px;margin-top:10px"><input id="chatInp" placeholder="Ask..."><button class="btn" style="width:80px" onclick="sendChat()" id="chatBtn">Send</button></div>`;
-  addMsg('ai',`Hi! I am ${currentTool.name} - Real AI API Connected! 🚀`);
+  body.innerHTML=`<h3>💬 ${currentTool.name}</h3><p style="color:#a855f7;font-weight:bold">By ${currentTool.company} | ToolkitAI - Vikram Saini</p><p style="color:#888">${currentTool.desc||''}</p><div id="chatBox"></div><div style="display:flex;gap:8px;margin-top:10px"><input id="chatInp" placeholder="Ask to ${currentTool.name}..." onkeypress="if(event.key==='Enter')sendChat()"><button class="btn" style="width:80px" onclick="sendChat()" id="chatBtn">Send</button></div>`;
+  addMsg('ai',`Hi! I am ${currentTool.name} ${currentTool.company?'by '+currentTool.company:''} on ToolkitAI Store (Founder: Vikram Saini). Ask me anything! 🚀 ${currentTool.desc||''}`);
  }
  document.getElementById('viewer').style.display='flex';
 }
-async function genImage(){
- let p=document.getElementById('imgPrompt').value; if(!p) return alert("Prompt likh!");
- let out=document.getElementById('imgOut'); let btn=document.getElementById('imgBtn');
- btn.innerText="⏳ Generating..."; btn.disabled=true;
- let url=IMAGE_API+encodeURIComponent(p)+"?nologo=true&seed="+Math.floor(Math.random()*100000);
- out.innerHTML=`<img src="${url}" style="max-width:100%;border-radius:15px;border:2px solid #a855f7" onload="document.getElementById('imgBtn').innerText='✨ Generate Again';document.getElementById('imgBtn').disabled=false"><p style="color:#888">Generated by ${currentTool.name}</p>`;
-}
+async function genImage(){let p=document.getElementById('imgPrompt').value; if(!p) return alert("Prompt likh bhai!"); let out=document.getElementById('imgOut'); let btn=document.getElementById('imgBtn'); btn.innerText="⏳ Generating Real AI..."; btn.disabled=true; let url=IMAGE_API+encodeURIComponent(p)+"?nologo=true&seed="+Math.floor(Math.random()*100000); out.innerHTML=`<img src="${url}" style="max-width:100%;border-radius:15px;border:2px solid #a855f7" onload="document.getElementById('imgBtn').innerText='✨ Generate Again';document.getElementById('imgBtn').disabled=false"><p style="color:#888;margin-top:8px">Generated by ${currentTool.name} | Store by Vikram Saini</p>`;}
 function addMsg(w,a){let b=document.getElementById('chatBox'); let d=document.createElement('div'); d.className='msg '+w; d.innerText=a; b.appendChild(d); b.scrollTop=b.scrollHeight;}
-async function sendChat(){
- let i=document.getElementById('chatInp'); let m=i.value.trim(); if(!m) return;
- addMsg('user',m); i.value=""; document.getElementById('chatBtn').innerText="...";
- try{let r=await fetch(TEXT_API+encodeURIComponent(m)); let t=await r.text(); addMsg('ai',t);}catch(e){addMsg('ai',"I can help with: "+m);}
- document.getElementById('chatBtn').innerText="Send";
-}
+async function sendChat(){let i=document.getElementById('chatInp'); let m=i.value.trim(); if(!m) return; addMsg('user',m); i.value=""; document.getElementById('chatBtn').innerText="..."; try{let r=await fetch(TEXT_API+encodeURIComponent(m)); let t=await r.text(); addMsg('ai',t);}catch(e){addMsg('ai',"I can help with: "+m+" | Powered by ToolkitAI - Vikram Saini");} document.getElementById('chatBtn').innerText="Send";}
 render();
+if('serviceWorker' in navigator){try{navigator.serviceWorker.register('sw.js');}catch(e){}}
 </script>
 </body></html>
