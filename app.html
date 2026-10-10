@@ -1,0 +1,144 @@
+<!DOCTYPE html><html><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ToolkitAI - 1000 Real AI Tools</title>
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#a855f7">
+<link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/4712/4712027.png">
+<style>
+body{background:#0a0a0a;color:#fff;font-family:sans-serif;margin:0;padding:10px}
+.header{background:#161616;padding:15px;border-radius:15px;text-align:center;border:1px solid #333}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:15px}
+.card{background:#161616;border:1px solid #2a2a2a;border-radius:16px;padding:12px}
+.card h3{margin:5px 0;font-size:14px} .cat{font-size:11px;color:#888}
+.btn{width:100%;padding:8px;background:#a855f7;color:#fff;border:none;border-radius:20px;margin-top:8px;cursor:pointer}
+.btn2{background:#222;color:#a855f7;border:1px solid #a855f7}
+#viewer{position:fixed;top:0;left:0;width:100%;height:100%;background:#000;z-index:999;display:none;flex-direction:column}
+#vTop{padding:10px;background:#161616;display:flex;justify-content:space-between;align-items:center}
+#vBody{flex:1;overflow:auto;padding:15px;background:#0a0a0a}
+input,textarea{width:92%;padding:12px;border-radius:10px;border:none;background:#222;color:#fff;margin:8px 0}
+#chatBox{height:60vh;overflow:auto;background:#161616;padding:10px;border-radius:10px;border:1px solid #333;display:flex;flex-direction:column}
+.msg{margin:8px 0;padding:8px 12px;border-radius:12px;max-width:85%;word-wrap:break-word}
+.user{background:#a855f7;align-self:flex-end;margin-left:auto} .ai{background:#222;align-self:flex-start}
+.installBtn{background:#22c55e;color:#fff;padding:10px 18px;border:none;border-radius:20px;margin-top:10px;display:none}
+</style>
+</head><body>
+<div class="header">
+<h2>✨ ToolkitAI Store</h2><p>Founder: Vikram Saini | Jaipur</p>
+<p style="color:#22c55e">● REAL AI API + PWA - 1000 Tools Working</p>
+<input id="search" placeholder="🔍 Search 1000 AI Tools..." onkeyup="render()">
+<button id="installBtn" class="installBtn">📲 Install ToolkitAI App</button>
+</div>
+<div class="grid" id="grid"></div>
+
+<div id="viewer">
+<div id="vTop"><b id="vTitle"></b><button onclick="viewer.style.display='none'" style="padding:6px 14px;background:#333;color:#fff;border:none;border-radius:10px">✕ Close</button></div>
+<div id="vBody"></div>
+</div>
+
+<script src="top-1000-list.js"></script>
+<script>
+const TEXT_API = "https://text.pollinations.ai/";
+const IMAGE_API = "https://image.pollinations.ai/prompt/";
+let currentTool = null;
+let deferredPrompt = null;
+
+function render(){
+ let q=document.getElementById('search').value.toLowerCase();
+ let html="";
+ TOP_1000_AI_TOOLS.filter(t=>t.name.toLowerCase().includes(q)).slice(0,120).forEach(t=>{
+   html+=`<div class="card">
+   <div style="font-size:24px">${t.type=='chat'?'💬':t.type=='image'?'🎨':t.type=='video'?'🎬':t.type=='audio'?'🎙️':'📝'}</div>
+   <h3>${t.name}</h3><div class="cat">${t.cat} • REAL API</div>
+   <button class="btn" onclick="openTool(${t.id})">⚡ Open & Use</button>
+   <button class="btn btn2" onclick="window.open('${t.link}','_blank')">🔗 Official</button>
+   </div>`;
+ });
+ document.getElementById('grid').innerHTML=html;
+}
+
+function openTool(id){
+ currentTool = TOP_1000_AI_TOOLS.find(x=>x.id==id);
+ document.getElementById('vTitle').innerText = currentTool.name + " - Real AI";
+ let body = document.getElementById('vBody');
+ if(currentTool.type=='image'){
+   body.innerHTML=`
+   <h2>🎨 ${currentTool.name} - Real Image AI</h2>
+   <p style="color:#888">Powered by Pollinations Free AI - DALL-E Type</p>
+   <textarea id="imgPrompt" rows="3" placeholder="Example: Jaipur palace at night, 4k ultra..."></textarea>
+   <button class="btn" onclick="genImage()" id="imgBtn">✨ Generate Real AI Image</button>
+   <div id="imgOut" style="margin-top:15px;text-align:center"></div>
+   <br><button class="btn btn2" onclick="downloadImage()">⬇️ Download Image</button>
+   `;
+ } else {
+   body.innerHTML=`
+   <h3>💬 ${currentTool.name} - Real ChatGPT AI</h3>
+   <p style="color:#888">Free AI API Connected</p>
+   <div id="chatBox"></div>
+   <div style="display:flex;gap:8px;margin-top:10px">
+   <input id="chatInp" placeholder="Ask to ${currentTool.name}..." onkeypress="if(event.key==='Enter')sendChat()">
+   <button class="btn" style="width:80px" onclick="sendChat()" id="chatBtn">Send</button>
+   </div>
+   `;
+   addMsg('ai', `Hi! I am ${currentTool.name} - Real AI. Ask me anything! 🚀`);
+ }
+ document.getElementById('viewer').style.display='flex';
+}
+
+async function genImage(){
+ let prompt = document.getElementById('imgPrompt').value;
+ if(!prompt) return alert("Prompt likh bhai!");
+ let btn = document.getElementById('imgBtn');
+ let out = document.getElementById('imgOut');
+ btn.innerText = "⏳ Generating 5 sec...";
+ btn.disabled = true;
+ let url = IMAGE_API + encodeURIComponent(prompt) + "?nologo=true&seed=" + Math.floor(Math.random()*100000);
+ out.innerHTML = `<img src="${url}" style="max-width:100%;border-radius:15px;border:2px solid #a855f7" onload="document.getElementById('imgBtn').innerText='✨ Generate Again'; document.getElementById('imgBtn').disabled=false"><p style="color:#888;margin-top:8px">Generated by ${currentTool.name} Real AI</p>`;
+}
+
+function addMsg(who, text){
+ let box = document.getElementById('chatBox');
+ let div = document.createElement('div');
+ div.className = 'msg ' + who;
+ div.innerHTML = (who=='user' ? '<b>You:</b> ' : `<b>${currentTool.name}:</b> `) + text.replace(/\n/g,'<br>');
+ box.appendChild(div);
+ box.scrollTop = box.scrollHeight;
+}
+
+async function sendChat(){
+ let inp = document.getElementById('chatInp');
+ let msg = inp.value.trim();
+ if(!msg) return;
+ addMsg('user', msg);
+ inp.value = "";
+ let btn = document.getElementById('chatBtn');
+ btn.innerText = "...";
+ try{
+   let res = await fetch(TEXT_API + encodeURIComponent(`You are ${currentTool.name}, helpful AI. User: ${msg}. Reply in Hinglish helpful.`));
+   let data = await res.text();
+   addMsg('ai', data);
+ } catch(e){
+   addMsg('ai', `I can help with "${msg}"! This is ${currentTool.name} real clone for ${currentTool.cat}. (API slow, try again)`);
+ }
+ btn.innerText = "Send";
+}
+
+function downloadImage(){
+ let img = document.querySelector("#imgOut img");
+ if(img) window.open(img.src, "_blank");
+}
+
+// PWA Install Logic
+window.addEventListener('beforeinstallprompt', (e)=>{
+ e.preventDefault(); deferredPrompt=e;
+ document.getElementById('installBtn').style.display='inline-block';
+});
+document.getElementById('installBtn').addEventListener('click', async ()=>{
+ if(deferredPrompt){deferredPrompt.prompt(); await deferredPrompt.userChoice; deferredPrompt=null; document.getElementById('installBtn').style.display='none';}
+});
+
+// Register Service Worker
+if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js');}
+
+render();
+</script>
+</body></html>
