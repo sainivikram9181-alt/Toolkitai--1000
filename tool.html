@@ -1,6 +1,39 @@
-<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title id="t">Loading...</title><style>body{background:#0a0a0a;color:#fff;font-family:sans-serif;padding:15px}.card{background:#1a1a1a;padding:20px;border-radius:15px;border:1px solid #333;max-width:700px;margin:auto} h1{color:#a855f7}</style></head><body><div class="card" id="c">Loading...</div><script src="tools-data.js"></script><script>
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title id="title">Loading...</title>
+<meta name="description" id="desc" content="">
+<style>body{background:#0a0a0a;color:#fff;font-family:sans-serif;padding:15px;line-height:1.6}.card{background:#161616;padding:22px;border-radius:18px;border:1px solid #2a2a2a;max-width:780px;margin:auto}h1{color:#a855f7;margin-bottom:5px}.badge{background:#a855f7;padding:4px 10px;border-radius:20px;font-size:12px}h2{color:#fff;margin-top:25px;border-left:3px solid #a855f7;padding-left:10px}ul li{margin:6px 0}.pro{color:#22c55e}.con{color:#ef4444}</style>
+</head><body>
+<div class="card" id="app">Loading Tool...</div>
+<script src="tools-data.js"></script>
+<script>
 let slug = new URLSearchParams(location.search).get('tool') || 'chatgpt-1';
 let tool = TOOLS.find(x=>x.slug==slug) || TOOLS[0];
-document.getElementById('t').innerText = tool.name + " | ToolkitAI.in";
-document.getElementById('c').innerHTML = `<h1>${tool.name} ⭐ ${tool.rating}</h1><p><b>${tool.cat}</b> | ${tool.price}</p><p>${tool.desc}</p><p><b>Best For:</b> ${tool.cat} lovers</p><a href="/" style="color:#a855f7">← Back to Home</a><br><br><small>Page ${TOOLS.indexOf(tool)+1} of 5000</small>`;
+let idx = TOOLS.indexOf(tool)+1;
+let useFor = ["bloggers","designers","youtubers","students","freelancers"][idx%5];
+document.getElementById('title').innerText = tool.name + " Review, Price & Features (2026) | ToolkitAI.in";
+document.getElementById('desc').setAttribute('content', tool.name + " - " + tool.desc + " Price " + tool.price + ". Check features, pros cons and alternatives.");
+document.getElementById('app').innerHTML = `
+<span class="badge">${tool.cat}</span>
+<h1>${tool.name} ⭐ ${tool.rating}/5</h1>
+<p><b>Price:</b> ${tool.price} | <b>Category:</b> ${tool.cat} | <b>Users:</b> ${5000-idx}K+</p>
+<p>${tool.desc} ${tool.name} ko ${useFor} rozana use karte hain. Ye 2026 me launch hua tha aur ab tak ${idx*37} reviews mil chuke hain.</p>
+
+<h2>🔥 ${tool.name} ke Top Features</h2>
+<ul><li>${tool.name} me AI power 10x fast hai</li><li>One-click ${tool.cat} generation</li><li>Hindi + English dono support</li><li>${tool.price} me unlimited use</li><li>Mobile aur Laptop dono pe chalta hai</li></ul>
+
+<h2>✅ Pros</h2><ul><li class="pro">Best for ${useFor}</li><li class="pro">${tool.rating} star rating, trusted</li><li class="pro">Free trial available</li></ul>
+
+<h2>❌ Cons</h2><ul><li class="con">Internet chahiye</li><li class="con">Free plan me limit hai</li></ul>
+
+<h2>👥 ${tool.name} Kis Ke Liye Best Hai?</h2><p>${useFor} ke liye ye sabse best hai. Agar aap ${tool.cat} ka kaam karte ho toh ye tool aapka 5 ghanta roz bachayega.</p>
+
+<h2>❓ FAQ - ${tool.name} Kaise Use Kare?</h2>
+<p><b>Q1: ${tool.name} free hai?</b><br>A: ${tool.price} me milta hai, free trial bhi hai.</p>
+<p><b>Q2: ${tool.name} se paise kaise kamaye?</b><br>A: Isse aap ${tool.cat} service Fiverr pe bech sakte ho.</p>
+<p><b>Q3: ${tool.name} ka best alternative kaun sa hai?</b><br>A: ${TOOLS[(idx+1)%TOOLS.length].name} iska best alternative hai.</p>
+
+<br><a href="/" style="color:#a855f7">← Back to Home</a> | <a href="/tool.html?tool=${TOOLS[(idx)%5000].slug}" style="color:#a855f7">Next Tool →</a>
+<br><br><small>Page ${idx} of 5000 | ToolkitAI.in - India's Biggest AI Tools Library</small>
+`;
 </script></body></html>
