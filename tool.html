@@ -1,0 +1,6 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title id="t">Loading...</title><style>body{background:#0a0a0a;color:#fff;font-family:sans-serif;padding:15px}.card{background:#1a1a1a;padding:20px;border-radius:15px;border:1px solid #333;max-width:700px;margin:auto} h1{color:#a855f7}</style></head><body><div class="card" id="c">Loading...</div><script src="tools-data.js"></script><script>
+let slug = new URLSearchParams(location.search).get('tool') || 'chatgpt-1';
+let tool = TOOLS.find(x=>x.slug==slug) || TOOLS[0];
+document.getElementById('t').innerText = tool.name + " | ToolkitAI.in";
+document.getElementById('c').innerHTML = `<h1>${tool.name} ⭐ ${tool.rating}</h1><p><b>${tool.cat}</b> | ${tool.price}</p><p>${tool.desc}</p><p><b>Best For:</b> ${tool.cat} lovers</p><a href="/" style="color:#a855f7">← Back to Home</a><br><br><small>Page ${TOOLS.indexOf(tool)+1} of 5000</small>`;
+</script></body></html>
