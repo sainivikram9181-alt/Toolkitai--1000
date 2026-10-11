@@ -1,1 +1,7 @@
-{"cleanUrls": true, "rewrites": [{"source": "/(.*)", "destination": "/index.html"}]}
+{
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/tool/:id", "destination": "/tool.html" },
+    { "source": "/tool/:id/", "destination": "/tool.html" }
+  ]
+}
