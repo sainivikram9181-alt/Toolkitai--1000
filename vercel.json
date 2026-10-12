@@ -1,7 +1,25 @@
 {
   "cleanUrls": true,
   "rewrites": [
-    { "source": "/tool/:id", "destination": "/tool.html" },
-    { "source": "/tool/:id/", "destination": "/tool.html" }
+    {
+      "source": "/BharatForm",
+      "destination": "/BharatForm/index.html"
+    },
+    {
+      "source": "/BharatForm/:path*",
+      "destination": "/BharatForm/:path*"
+    },
+    {
+      "source": "/BharatForm-Extension/:path*",
+      "destination": "/BharatForm-Extension/:path*"
+    },
+    {
+      "source": "/tool/:id",
+      "destination": "/tool.html"
+    },
+    {
+      "source": "/tool/:id/",
+      "destination": "/tool.html"
+    }
   ]
 }
