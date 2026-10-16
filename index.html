@@ -24,6 +24,17 @@
 .msgs{flex:1;overflow:auto;padding:16px;display:flex;flex-direction:column;gap:10px}.msg{max-width:88%;padding:12px 14px;border-radius:16px;font-size:14px;white-space:pre-wrap}.msg.user{align-self:flex-end;background:#7c3aed}.msg.ai{align-self:flex-start;background:#1e1e24;border:1px solid #2a2a30}
 .inputbar{padding:12px;background:#121216;border-top:1px solid #23232a;display:flex;gap:8px}.inputbar input{flex:1;background:#1e1e24;border:1px solid #2a2a30;color:#fff;padding:12px 16px;border-radius:24px;outline:0}.inputbar button{background:#7c3aed;border:0;color:#fff;padding:12px 20px;border-radius:24px;font-weight:700;cursor:pointer}
 .modal{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:400;display:none;align-items:center;justify-content:center;padding:20px}.modal.active{display:flex}.modalbox{background:#121216;border:1px solid #2a2a30;border-radius:16px;padding:20px;width:100%;max-width:400px}.modalbox input,.modalbox textarea{width:100%;background:#1e1e24;border:1px solid #2a2a30;color:#fff;padding:10px;border-radius:10px;margin:6px 0}
+/* NAYA CSS - FACTORY + PUBLISH + INSTALL - JO PEHLE NAHI THA */
+.factory{margin:12px 18px;background:linear-gradient(90deg,#1a0b3e,#2d0b5a);border:1px solid #7c3aed;border-radius:12px;padding:10px 14px;text-align:center;box-shadow:0 0 20px rgba(124,58,237,0.25)}
+.factory p{font-size:11px;font-weight:700;color:#fff}
+.factory span{color:#c084fc}
+.action-row{display:flex;gap:10px;justify-content:center;margin:12px 18px}
+.btn-create{flex:1.3;background:linear-gradient(90deg,#7c3aed,#ec4899);color:#fff;padding:13px 18px;border-radius:999px;font-weight:800;border:0;cursor:pointer;font-size:14px;box-shadow:0 4px 15px rgba(124,58,237,0.4)}
+.btn-publish{flex:0.7;background:#fff;color:#7c3aed;padding:13px 18px;border-radius:999px;font-weight:800;border:0;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;gap:6px}
+.install-top{position:absolute;top:8px;right:8px;background:#16a34a;color:#fff;padding:4px 10px;border-radius:8px;font-size:10px;font-weight:800;border:0;cursor:pointer;z-index:2}
+.btn-row{display:flex;gap:8px;margin-top:8px}
+.btn-open{flex:1;background:#7c3aed;border:0;color:#fff;padding:9px;border-radius:10px;cursor:pointer;font-weight:600;font-size:12px}
+.btn-install{flex:1;background:#16a34a;border:0;color:#fff;padding:9px;border-radius:10px;cursor:pointer;font-weight:700;font-size:12px}
 </style>
 </head>
 <body>
@@ -31,6 +42,18 @@
 <div><b>🚀 ToolkitAI.in - PLAY STORE FOR AI - 1000+ REAL TOOLS - NO ERROR</b><small>👑 Founder: Vikram Saini | Jaipur, Rajasthan, India | 1000 Apps Ranked #1-1000 | Play Store Level Capacity</small></div>
 <div style="display:flex;gap:6px"><button class="hbtn" onclick="openLaunch()">🚀 Launch Pad</button><button class="hbtn" onclick="alert('Google Chrome > Menu (3 dots) > Add to Home Screen > Install - Ab ToolkitAI Play Store jaisa app ban gaya!')">📲 Download</button></div>
 </div>
+
+<!-- NAYA ADD - Factory Strip - PEHLE NAHI THA -->
+<div class="factory">
+<p>🏭 Micro Tool Factory | Banao Becho Kamao | 80% Earning | <span>TOOLKITAI.IN</span> | <span style="color:#a78bfa">support@toolkitai.in</span></p>
+</div>
+
+<!-- NAYA ADD - Apna Tool Banao + Publish Right Side - PEHLE NAHI THA -->
+<div class="action-row">
+<button class="btn-create" onclick="openLaunch()">+ Apna Tool Banao +</button>
+<button class="btn-publish" onclick="openLaunch()">📤 Publish</button>
+</div>
+
 <div class="searchbox"><input id="search" placeholder="🔍 Search 1000 AI tools... e.g. ChatGPT, Midjourney" oninput="doSearch()"></div>
 <div class="filters">
 <button class="fbtn active" onclick="filterCat('all',this)">All 1000</button>
@@ -48,11 +71,18 @@ let TOOLS=BASE.map((n,i)=>({id:i+1,rank:i+1,name:n,company:n.split(' by ')[1]||'
 while(TOOLS.length<1000){let i=TOOLS.length+1;let name=`AI Tool ${i} by Global Company ${i}`;TOOLS.push({id:i,rank:i,name:name,company:`Company ${i}`,cat:i<100?'Top AI':i<500?'Popular AI':'New AI',desc:`Rank #${i} - ${name} - Real working AI tool - Play Store Level - Founder Vikram Saini Jaipur`});}
 let launched=JSON.parse(localStorage.getItem('toolkitai_launched')||'[]');if(launched.length)TOOLS=[...launched,...TOOLS];
 let filtered=[...TOOLS],currentCat='all',currentTool=null;
-function render(list=filtered){document.getElementById('grid').innerHTML=list.slice(0,1000).map(t=>`<div class="card"><div class="rank">#${t.rank} RANK</div><h3>${t.name}</h3><div class="company">${t.company} • ${t.cat}</div><p>${t.desc}</p><button class="btn" onclick="openTool(${t.id})">⚡ Open & Use - No Error</button></div>`).join('');}
+// FINAL RENDER - NAYA INSTALL BUTTON ADD KIYA
+function render(list=filtered){document.getElementById('grid').innerHTML=list.slice(0,1000).map(t=>`<div class="card"><div class="rank">#${t.rank} RANK</div><button class="install-top" onclick="installTool(${t.id})">⬇️ Install</button><h3>${t.name}</h3><div class="company">${t.company} • ${t.cat} • 4.5★ • 10M+ downloads</div><p>${t.desc}</p><div class="btn-row"><button class="btn-open" onclick="openTool(${t.id})">⚡ Open - No Error</button><button class="btn-install" onclick="installTool(${t.id})">⬇️ Install</button></div></div>`).join('');}
 function filterCat(c,el){currentCat=c;document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('active'));if(el)el.classList.add('active');filtered=c==='all'?[...TOOLS]:TOOLS.filter(t=>t.cat===c);render();}
 function doSearch(){let q=document.getElementById('search').value.toLowerCase();if(!q){filtered=currentCat==='all'?[...TOOLS]:TOOLS.filter(t=>t.cat===currentCat);render();return;}filtered=TOOLS.filter(t=>t.name.toLowerCase().includes(q)||t.company.toLowerCase().includes(q));render();}
 function openTool(id){currentTool=TOOLS.find(x=>x.id===id);document.getElementById('vTitle').innerText='#'+currentTool.rank+' '+currentTool.name;document.getElementById('vCompany').innerText=currentTool.company+' | Founder Vikram Saini Jaipur Rajasthan | Play Store Level';document.getElementById('viewer').classList.add('active');document.getElementById('msgs').innerHTML=`<div class="msg ai">👋 Hi! I am <b>${currentTool.name}</b> by <b>${currentTool.company}</b><br><br>Rank #${currentTool.rank} on ToolkitAI.in<br>Founder: Vikram Saini, Jaipur Rajasthan<br><br>Puchho kuch bhi! Meta AI jaisa jawab dunga - No Error! 🚀</div>`;}
 function closeViewer(){document.getElementById('viewer').classList.remove('active');}
+// NAYA FUNCTION - INSTALL - PEHLE NAHI THA
+function installTool(id){
+  let tool = TOOLS.find(x=>x.id===id);
+  alert('✅ '+tool.name+' Installing... Home Screen pe dekho! (PWA)');
+  if(window.deferredPrompt){ window.deferredPrompt.prompt(); }
+}
 async function callAI(prompt){let full=`You are ${currentTool.name} by ${currentTool.company} on ToolkitAI.in founded by Vikram Saini Jaipur Rajasthan Rank #${currentTool.rank}. Answer like Meta AI helpfully. User: `+prompt;try{let r=await fetch("https://text.pollinations.ai/openai",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({model:"openai-fast",messages:[{role:"user",content:full}],stream:false})});let d=await r.json();let txt=d.choices?.[0]?.message?.content||"";if(txt&&txt.length>10&&!txt.includes("ENOSPC")&&!txt.toLowerCase().includes("no space"))return txt;}catch(e){}try{let r2=await fetch("https://text.pollinations.ai/openai",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({model:"mistral",messages:[{role:"user",content:full}],stream:false})});let d2=await r2.json();let txt2=d2.choices?.[0]?.message?.content||"";if(txt2&&txt2.length>10&&!txt2.includes("ENOSPC"))return txt2;}catch(e){}try{let r3=await fetch("https://text.pollinations.ai/"+encodeURIComponent(full));let t3=await r3.text();if(t3&&t3.length>10&&!t3.includes("ENOSPC")&&!t3.includes("<!DOCTYPE"))return t3;}catch(e){}return `Main ${currentTool.name} (${currentTool.company}) hu Rank #${currentTool.rank} ToolkitAI.in par Founder Vikram Saini Jaipur. Aapne pucha: "${prompt}" - Server busy hai 5 sec baad fir try karo, Meta AI jaisa jawab dunga!`;}
 async function send(){let input=document.getElementById('q');let q=input.value.trim();if(!q)return;let msgs=document.getElementById('msgs');msgs.innerHTML+=`<div class="msg user">${q}</div>`;input.value='';let id="tmp"+Date.now();msgs.innerHTML+=`<div class="msg ai" id="${id}">Soach raha hu... 🤔</div>`;msgs.scrollTop=msgs.scrollHeight;let ans=await callAI(q);document.getElementById(id).innerHTML=`<b>${currentTool.name}</b> says:<br><br>${ans}<br><br><small style="color:#a855f7">- Rank #${currentTool.rank} | ${currentTool.company} | ToolkitAI.in | Founder Vikram Saini Jaipur | Play Store Level</small>`;msgs.scrollTop=msgs.scrollHeight;}
 function openLaunch(){document.getElementById('launchModal').classList.add('active');}function closeLaunch(){document.getElementById('launchModal').classList.remove('active');}
