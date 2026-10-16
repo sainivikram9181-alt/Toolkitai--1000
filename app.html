@@ -48,7 +48,6 @@ body{font-family:system-ui;background:#050507;color:#fff;padding-bottom:90px}
 .tool-area{background:#0f0f12;border:1px dashed #7c3aed;border-radius:12px;padding:14px;margin-top:10px}
 .btn{width:100%;background:#7c3aed;border:0;color:#fff;padding:11px;border-radius:10px;cursor:pointer;font-weight:700;margin-top:6px}
 .install-top{position:absolute;top:8px;right:8px;background:#16a34a;color:#fff;padding:4px 10px;border-radius:8px;font-size:10px;font-weight:800;border:0;cursor:pointer}
-/* SUPER CHAT FIXED BOTTOM - ALWAYS VISIBLE */
 #tk-super-chat-btn{position:fixed!important;bottom:20px!important;right:20px!important;z-index:999999!important;background:linear-gradient(135deg,#8a2be2,#ff1493);color:#fff;border:none;padding:14px 22px;border-radius:50px;font-weight:800;cursor:pointer;box-shadow:0 8px 24px rgba(138,43,226,.6);display:block!important}
 #tk-chat-box{display:none;position:fixed;bottom:85px;right:12px;z-index:999999;width:96%;max-width:400px;height:540px;background:#0f0f0f;border:1px solid #2a2a2a;border-radius:18px;overflow:hidden;flex-direction:column}
 #tk-chat-head{background:linear-gradient(135deg,#8a2be2,#ff1493);color:#fff;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;font-weight:700}
@@ -70,19 +69,16 @@ body{font-family:system-ui;background:#050507;color:#fff;padding-bottom:90px}
 <div class="header"><div><b>🚀 ToolkitAI.in - PLAY STORE FOR AI - 1000+ REAL TOOLS - NO ERROR</b><br><small>👑 Founder: Vikram Saini | Jaipur, Rajasthan, India | 1000 Apps Ranked #1-1000</small></div><div style="display:flex;gap:6px"><button class="hbtn" onclick="openLaunch()">🚀 Launch Pad</button><button class="hbtn">📱 Download</button></div></div>
 <div class="factory"><p>🏭 Micro Tool Factory | Banao Becho Kamao | 80% Earning | TOOLKITAI.IN | support@toolkitai.in</p></div>
 <div class="action-row"><button class="btn-create" onclick="openLaunch()">+ Apna Tool Banao +</button><button class="btn-publish" onclick="openLaunch()">📤 Publish</button></div>
-<div class="searchbox"><input id="search" placeholder="🔍 Search 1000 AI tools... e.g. ChatGPT, Midjourn" oninput="doSearch()"></div>
+<div class="searchbox"><input id="search" placeholder="🔍 Search 1000 AI tools..." oninput="doSearch()"></div>
 <div class="filters"><button class="fbtn active" onclick="filterCat('all',this)">All 1000</button><button class="fbtn" onclick="filterCat('Top AI',this)">Top 1-100</button><button class="fbtn" onclick="filterCat('Popular AI',this)">101-500</button><button class="fbtn" onclick="filterCat('New AI',this)">501-1000</button><button class="fbtn" onclick="filterCat('Company Launch',this)">🚀 Company</button></div>
 <div class="grid" id="grid"></div>
-
 <div class="viewer" id="viewer"><div class="vhead"><div><h2 id="vTitle">Tool</h2><small id="vCompany" style="color:#a855f7"></small></div><button onclick="closeViewer()" style="background:#ef4444;border:0;color:#fff;padding:8px 14px;border-radius:20px;cursor:pointer">X</button></div><div class="msgs" id="msgs"></div><div id="toolContainer"></div><div class="inputbar"><input id="q" placeholder="Ask anything..." onkeypress="if(event.key==='Enter')send()"><button onclick="send()">Send</button></div></div>
-
 <div class="modal" id="launchModal"><div class="modalbox">
 <h3>🚀 AI Idea se Micro Tool Banao</h3>
 <div class="tab"><button id="tab1" class="active" onclick="switchTab(1)">🤖 AI Idea</button><button id="tab2" onclick="switchTab(2)">📝 Manual</button></div>
 <div id="aiTab">
-<textarea id="ideaPrompt" rows="4" placeholder="Idea likho... Jaise: GST Calculator chahiye, QR Code generator, Age calculator"></textarea>
+<textarea id="ideaPrompt" rows="4" placeholder="Idea likho..."></textarea>
 <button class="btn" style="background:linear-gradient(90deg,#7c3aed,#ec4899)" onclick="aiGenerateTool()">✨ AI se Tool Banao - Instant</button>
-<small style="color:#9ca3af;font-size:11px;display:block;margin-top:6px">AI tumhari problem samajh ke pura working tool bana dega!</small>
 </div>
 <div id="manualTab" style="display:none">
 <input id="cName" placeholder="Company Name"><input id="aName" placeholder="App Name"><textarea id="aDesc" placeholder="App Description"></textarea>
@@ -91,18 +87,16 @@ body{font-family:system-ui;background:#050507;color:#fff;padding-bottom:90px}
 <div id="aiPreview" style="display:none" class="tool-area"><b id="aiToolName"></b><p id="aiToolDesc" style="font-size:11px;color:#9ca3af"></p><div id="aiToolLive"></div><button class="btn" style="background:#16a34a" onclick="publishAiTool()">🚀 #1 Pe Publish Karo</button></div>
 <button class="btn" style="background:#1e1e24;margin-top:10px" onclick="closeLaunch()">Cancel</button>
 </div></div>
-
-<!-- SUPER CHAT BUTTON - ALWAYS VISIBLE AT BOTTOM -->
 <button id="tk-super-chat-btn" onclick="toggleTk()">💬 ToolkitAi super chat</button>
-<div id="tk-chat-box"><div id="tk-chat-head"><span>💬 ToolkitAi super chat - REAL API</span><div style="display:flex;gap:8px"><button onclick="downloadChat()" style="background:rgba(255,255,255,.2);border:none;color:#fff;border-radius:50%;width:28px;height:28px;cursor:pointer">⬇️</button><span onclick="toggleTk()" style="cursor:pointer">✖</span></div></div><div id="tk-chat-msgs"><div class="tk-bubble tk-ai">Hi Vikram! Main REAL Gemini AI hu 🚀<br>Ab ABCD, Code, GST sab ka real jawab dunga!</div></div><div id="tk-reply-preview"><div><b>Replying to</b><div id="tk-reply-text"></div></div><span onclick="cancelReply()" style="cursor:pointer">✖</span></div><div class="tk-attach-bar"><button class="tk-icon-btn" onclick="pickFile('image/*')">🖼️</button><button class="tk-icon-btn" onclick="pickFile('video/*')">🎥</button><button class="tk-icon-btn" id="tk-mic" onclick="toggleVoice()">🎤</button><button class="tk-icon-btn" onclick="pickFile('*/*')">📎</button><span id="tk-rec-timer" style="color:#ff4444;font-size:12px;display:none">● REC</span></div><div class="tk-input-row"><input id="tk-input" placeholder="ABCD likho..." onkeypress="if(event.key==='Enter')sendTk()"><button id="tk-send" onclick="sendTk()">➤</button></div></div><input type="file" id="tk-file" onchange="handleFile(this)">
+<div id="tk-chat-box"><div id="tk-chat-head"><span>💬 ToolkitAi super chat - REAL API</span><div style="display:flex;gap:8px"><button onclick="downloadChat()" style="background:rgba(255,255,255,.2);border:none;color:#fff;border-radius:50%;width:28px;height:28px;cursor:pointer">⬇️</button><span onclick="toggleTk()" style="cursor:pointer">✖</span></div></div><div id="tk-chat-msgs"><div class="tk-bubble tk-ai">Hi Vikram! Main REAL Gemini 2.0 AI hu 🚀<br>Ab ABCD ka REAL jawab dunga!</div></div><div id="tk-reply-preview"><div><b>Replying to</b><div id="tk-reply-text"></div></div><span onclick="cancelReply()" style="cursor:pointer">✖</span></div><div class="tk-attach-bar"><button class="tk-icon-btn" onclick="pickFile('image/*')">🖼️</button><button class="tk-icon-btn" onclick="pickFile('video/*')">🎥</button><button class="tk-icon-btn" id="tk-mic" onclick="toggleVoice()">🎤</button><button class="tk-icon-btn" onclick="pickFile('*/*')">📎</button><span id="tk-rec-timer" style="color:#ff4444;font-size:12px;display:none">● REC</span></div><div class="tk-input-row"><input id="tk-input" placeholder="ABCD likho..." onkeypress="if(event.key==='Enter')sendTk()"><button id="tk-send" onclick="sendTk()">➤</button></div></div><input type="file" id="tk-file" onchange="handleFile(this)">
 
 <script>
 const BASE=["ChatGPT by OpenAI","Midjourney v6 by Midjourney Inc","DALL-E 3 by OpenAI","Claude 3.5 Sonnet by Anthropic","Gemini 1.5 Pro by Google","Stable Diffusion XL by Stability AI","Leonardo AI by Leonardo","Runway Gen-3 Turbo by Runway","Sora by OpenAI","ElevenLabs Voice by ElevenLabs"];
-let TOOLS=BASE.map((n,i)=>({id:i+1,rank:i+1,name:n,company:n.split(' by ')[1]||'ToolkitAI',cat:i<100?'Top AI':i<500?'Popular AI':'New AI',desc:`Rank #${i+1} - ${n} - Real working AI tool like Meta AI. Founder Vikram Saini Jaipur Rajasthan.`,customHtml:null}));
-while(TOOLS.length<1000){let i=TOOLS.length+1;TOOLS.push({id:i,rank:i,name:`AI Tool ${i} by Company ${i}`,company:`Company ${i}`,cat:i<100?'Top AI':i<500?'Popular AI':'New AI',desc:`Rank #${i} - Real working AI tool like Meta AI. Founder Vikram Saini Jaipur.`,customHtml:null});}
+let TOOLS=BASE.map((n,i)=>({id:i+1,rank:i+1,name:n,company:n.split(' by ')[1]||'ToolkitAI',cat:i<100?'Top AI':i<500?'Popular AI':'New AI',desc:`Rank #${i+1} - ${n} - Real working AI tool. Founder Vikram Saini Jaipur.`,customHtml:null}));
+while(TOOLS.length<1000){let i=TOOLS.length+1;TOOLS.push({id:i,rank:i,name:`AI Tool ${i} by Company ${i}`,company:`Company ${i}`,cat:i<100?'Top AI':i<500?'Popular AI':'New AI',desc:`Rank #${i} - Real working AI tool. Founder Vikram Saini Jaipur.`,customHtml:null});}
 let launched=JSON.parse(localStorage.getItem('toolkitai_launched')||'[]');if(launched.length)TOOLS=[...launched,...TOOLS];
 let filtered=[...TOOLS],currentTool=null,pendingAiTool=null,currentCat='all';
-function render(list=filtered){document.getElementById('grid').innerHTML=list.slice(0,1000).map(t=>`<div class="card"><div class="rank">#${t.rank} RANK</div><button class="install-top" onclick="installTool(${t.id})">⬇️ Install</button><h3>${t.name}</h3><div class="company">${t.company} • ${t.cat} • 4.5★ • 10M+ downloads</div><p>${t.desc}</p><div class="btn-row"><button class="btn-open" onclick="openTool(${t.id})">⚡ Open - No Error</button><button class="btn-install" onclick="installTool(${t.id})">⬇️ Install</button></div></div>`).join('');}
+function render(list=filtered){document.getElementById('grid').innerHTML=list.slice(0,1000).map(t=>`<div class="card"><div class="rank">#${t.rank} RANK</div><button class="install-top" onclick="installTool(${t.id})">⬇️ Install</button><h3>${t.name}</h3><div class="company">${t.company} • ${t.cat} • 4.5★</div><p>${t.desc}</p><div class="btn-row"><button class="btn-open" onclick="openTool(${t.id})">⚡ Open - No Error</button><button class="btn-install" onclick="installTool(${t.id})">⬇️ Install</button></div></div>`).join('');}
 function filterCat(c,el){currentCat=c;document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('active'));if(el)el.classList.add('active');filtered=c==='all'?[...TOOLS]:TOOLS.filter(t=>t.cat===c);render();}
 function doSearch(){let q=document.getElementById('search').value.toLowerCase();if(!q){filtered=currentCat==='all'?[...TOOLS]:TOOLS.filter(t=>t.cat===currentCat);render();return;}filtered=TOOLS.filter(t=>t.name.toLowerCase().includes(q));render();}
 function openTool(id){currentTool=TOOLS.find(x=>x.id===id);document.getElementById('vTitle').innerText='#'+currentTool.rank+' '+currentTool.name;document.getElementById('vCompany').innerText=currentTool.company;document.getElementById('viewer').classList.add('active');document.getElementById('toolContainer').innerHTML='';if(currentTool.customHtml){document.getElementById('msgs').innerHTML=`<div style="padding:10px;color:#a855f7">✨ AI Generated: ${currentTool.name}</div>`;document.getElementById('toolContainer').innerHTML=currentTool.customHtml;attachToolLogic();}else{document.getElementById('msgs').innerHTML=`<div style="background:#1e1e24;padding:12px;border-radius:12px">Hi! I am <b>${currentTool.name}</b> Rank #${currentTool.rank}</div>`;}}
@@ -118,7 +112,7 @@ function launchApp(){let c=document.getElementById('cName').value.trim();let a=d
 function send(){let q=document.getElementById('q').value;if(!q)return;let m=document.getElementById('msgs');let d=document.createElement('div');d.style.background='#7c3aed';d.style.padding='10px';d.style.borderRadius='12px';d.style.alignSelf='flex-end';d.innerText=q;m.appendChild(d);document.getElementById('q').value='';}
 render();
 
-// === SUPER CHAT REAL API - FINAL ===
+// === SUPER CHAT REAL API - GEMINI 2.0 FLASH FINAL FIX ===
 let tkMediaRecorder=null,tkAudioChunks=[],tkIsRec=false,tkReplyTo=null;
 let GEMINI_KEY = localStorage.getItem('toolkitai_gemini_key') || '';
 async function getGeminiKey(){
@@ -130,7 +124,7 @@ async function getGeminiKey(){
 async function callGeminiReal(promptText){
   let key = await getGeminiKey(); if(!key) return "❌ Key nahi dali!";
   try{
-    let res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${key}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:promptText}]}]})});
+    let res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${key}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:promptText}]}]})});
     let data = await res.json();
     if(data.error) return "Error: "+data.error.message;
     return data.candidates[0].content.parts[0].text;
@@ -145,7 +139,7 @@ async function sendTk(){
   let inp=document.getElementById('tk-input');let t=inp.value.trim();if(!t)return;
   addBubble(t,true);inp.value='';
   let box=document.getElementById('tk-chat-msgs');
-  let temp=document.createElement('div');temp.className='tk-bubble tk-ai';temp.id='tempAI';temp.innerText='🤖 REAL AI soch raha hai...';box.appendChild(temp);box.scrollTop=box.scrollHeight;
+  let temp=document.createElement('div');temp.className='tk-bubble tk-ai';temp.id='tempAI';temp.innerText='🤖 REAL 2.0 AI soch raha hai...';box.appendChild(temp);box.scrollTop=box.scrollHeight;
   let ans = await callGeminiReal(tkReplyTo?`Reply to ${tkReplyTo}: ${t}`:t);
   document.getElementById('tempAI')?.remove();
   addBubble(ans.replace(/\n/g,'<br>'),false);
