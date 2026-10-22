@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="hi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>ToolkitAI ID</title>
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
 <style>
 *{box-sizing:border-box;font-family:system-ui}body{margin:0;background:#000;color:#fff}
 .header{background:#111;padding:14px;text-align:center;border-bottom:1px solid #222}
@@ -10,11 +11,12 @@
 .card{background:#111;border:1px solid #222;border-radius:18px;padding:18px;margin-top:12px}
 input,select{width:100%;padding:13px;margin:6px 0;border-radius:10px;border:1px solid #333;background:#000;color:#fff;font-size:15px}
 .btn{width:100%;padding:14px;margin-top:10px;border-radius:11px;border:none;font-weight:900;cursor:pointer;font-size:15px}
-.btn-white{background:#fff;color:#000}.btn-blue{background:#4285F4;color:#fff}
+.btn-white{background:#fff;color:#000}.btn-blue{background:#4285F4;color:#fff}.btn-black{background:#000;color:#fff;border:1px solid #333}
 #idCard{display:none;background:#fff;color:#000;border-radius:18px;padding:22px;text-align:center;margin-top:12px}
+#qrcode{display:flex;justify-content:center;margin:16px 0}
 iframe{width:100%;height:750px;border:none;border-radius:12px;background:#fff}
 </style></head><body>
-<div class="header"><h2 style="margin:0">🪪 ToolkitAI ID</h2><small style="color:#888">Official - Fresher to Diamond</small></div>
+<div class="header"><h2 style="margin:0">🪪 ToolkitAI ID</h2><small style="color:#888">Official - Fresher to Diamond - QR Verified</small></div>
 <div class="tabs">
 <div class="tab active" id="tabApp" onclick="showTab('app')">⚡ App - Instant</div>
 <div class="tab" id="tabGoogle" onclick="showTab('google')">📝 Google - Official</div>
@@ -26,22 +28,30 @@ iframe{width:100%;height:750px;border:none;border-radius:12px;background:#fff}
 <input id="inpCity" placeholder="City * ex: Bhilwara">
 <select id="inpWork"><option value="">Working Field *</option><option>Student</option><option>Business</option><option>Job</option><option>Freelancer</option><option>Other</option></select>
 <select id="inpCat"><option value="">Category *</option><option>Fresher Category</option><option>Silver Category</option><option>Golden Category</option><option>Platinum Category</option><option>Diamond Category</option></select>
-<button class="btn btn-white" onclick="makeID()">ID Generate Karo ✅</button>
+<button class="btn btn-white" onclick="makeID()">ID Generate + QR + Auto Login 🚀</button>
 </div>
 <div id="boxGoogle" class="card" style="display:none">
 <a href="https://docs.google.com/forms/d/e/1FAIpQLSdlnKrVnSNln0ferI6M9jpVpJWAeGL22q2Tdw6XBZDYWGHkWA/viewform" target="_blank"><button class="btn btn-blue">Google Form Kholo 📝</button></a>
 <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdlnKrVnSNln0ferI6M9jpVpJWAeGL22q2Tdw6XBZDYWGHkWA/viewform?embedded=true" style="margin-top:12px"></iframe>
 </div>
 <div id="idCard">
-<h2 id="cName" style="margin:0"></h2>
+<span style="background:#FFD700;color:#000;padding:5px 12px;border-radius:20px;font-size:11px;font-weight:900">💎 VERIFIED</span>
+<h2 id="cName" style="margin:10px 0 0"></h2>
 <p id="cInfo" style="color:#666;font-size:13px;margin:8px 0"></p>
 <div style="margin:16px 0"><span id="tid" style="background:#000;color:#fff;padding:12px 20px;border-radius:10px;font-weight:900;font-size:20px;display:inline-block"></span></div>
-<div style="background:#f2f2f2;padding:10px;border-radius:8px;font-size:12px"><b>Verify:</b> toolkitai.in/verify?id=<span id="vId"></span></div>
-<p style="font-size:13px;margin-top:12px">🎉 <b>Vikram Saini</b> aapka Diamond ID ban gaya!</p>
-<button class="btn btn-white" style="border:1px solid #ddd" onclick="location.reload()">Nayi ID Banao</button>
+<div id="qrcode"></div>
+<p style="font-size:11px;color:#888">📱 Scan karke verify karo</p>
+<div style="background:#f2f2f2;padding:10px;border-radius:8px;font-size:11px;word-break:break-all"><b>Verify:</b> <span id="vLink"></span></div>
+<div style="display:flex;gap:8px;margin-top:14px">
+<button class="btn btn-black" style="flex:1" onclick="shareID()">Share 📤</button>
+<button class="btn btn-white" style="flex:1;border:1px solid #ddd" onclick="goApp()">App me Jao ✅</button>
+</div>
+<p style="font-size:11px;color:green;margin-top:10px" id="autoMsg">✅ Auto Login - 5 sec me App khulega</p>
+<button class="btn btn-white" style="border:1px solid #ddd;margin-top:8px" onclick="location.reload()">Nayi ID Banao</button>
 </div>
 </div>
 <script>
+let finalID='';
 function showTab(t){
 document.getElementById('boxApp').style.display=t=='app'?'block':'none';
 document.getElementById('boxGoogle').style.display=t=='google'?'block':'none';
@@ -57,13 +67,35 @@ let w=document.getElementById('inpWork').value;
 let k=document.getElementById('inpCat').value;
 if(!n||!m||!c||!w||!k){alert('Saare * wale fields bharo bhai!');return;}
 let id='TK-'+m.slice(-4)+'-'+Math.floor(Math.random()*9000+1000);
+finalID=id;
+
+// AUTO LOGIN SAVE
+localStorage.setItem('TOOLKITAI_ID', id);
+localStorage.setItem('TOOLKITAI_NAME', n);
+localStorage.setItem('TOOLKITAI_CITY', c);
+localStorage.setItem('TOOLKITAI_CAT', k);
+
 document.getElementById('cName').innerText=n;
 document.getElementById('cInfo').innerText=c+' | '+w+' | '+k;
 document.getElementById('tid').innerText=id;
-document.getElementById('vId').innerText=id;
+let verifyURL='https://sainiv.github.io/Toolkitai--1000/verify.html?id='+id;
+document.getElementById('vLink').innerText=verifyURL;
+
+// QR
+document.getElementById('qrcode').innerHTML='';
+new QRCode(document.getElementById('qrcode'), {text: verifyURL, width:160, height:160});
+
 document.getElementById('boxApp').style.display='none';
 document.getElementById('boxGoogle').style.display='none';
 document.getElementById('idCard').style.display='block';
 window.scrollTo(0,0);
+
+setTimeout(()=>{ window.location.href='index.html'; }, 5000);
+}
+function goApp(){ window.location.href='index.html'; }
+function shareID(){
+ let text=`🪪 Meri ToolkitAI ID: ${finalID}\n✅ Verify: https://sainiv.github.io/Toolkitai--1000/verify.html?id=${finalID}`;
+ if(navigator.share){ navigator.share({title:'ToolkitAI ID', text:text}); }
+ else { prompt('Copy karo:', text); }
 }
 </script></body></html>
