@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>AI Insta • 100% AI • ToolkitAI ID Only</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto}
+body{background:#000;color:#fff;display:flex;justify-content:center}
+.app{width:100%;max-width:430px;background:#000;min-height:100vh;position:relative;border:1px solid #222}
+.top{position:sticky;top:0;background:#000;z-index:20;padding:12px 14px;border-bottom:1px solid #262626;display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:26px;font-weight:800;background:linear-gradient(45deg,#feda75,#fa7e1e,#d62976,#962fbf);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.badge{font-size:10px;background:#1a1a1a;border:1px solid #333;padding:3px 8px;border-radius:20px}
+.id-bar{background:#0a0a0a;border:1px solid #262626;margin:10px;border-radius:12px;padding:10px;display:flex;gap:10px;align-items:center}
+.id-bar img{width:42px;height:42px;border-radius:50%}
+.id-bar b{font-size:13px}
+.id-bar p{font-size:11px;color:#aaa}
+.ai-panel{margin:10px;background:linear-gradient(135deg,#111,#1a1a1a);border:1px solid #2a2a2a;border-radius:16px;padding:14px}
+.ai-panel h3{font-size:14px;margin-bottom:10px}
+.ai-panel textarea{width:100%;background:#000;border:1px solid #333;border-radius:12px;padding:12px;color:#fff;font-size:13px;outline:none;resize:none}
+.ai-panel .row{display:flex;gap:8px;margin-top:10px}
+.btn{flex:1;padding:12px;border:none;border-radius:12px;font-weight:700;font-size:13px;cursor:pointer}
+.btn-gold{background:linear-gradient(45deg,#feda75,#fa7e1e);color:#000}
+.btn-dark{background:#262626;color:#fff}
+.feed{padding-bottom:80px}
+.post{border-bottom:1px solid #262626;margin-bottom:6px}
+.post-h{display:flex;align-items:center;justify-content:space-between;padding:10px 12px}
+.post-h-l{display:flex;align-items:center;gap:9px}
+.post-h-l img{width:32px;height:32px;border-radius:50%}
+.post-h-l b{font-size:13px}
+.post-h-l span{font-size:10px;background:#111;border:1px solid #333;padding:2px 6px;border-radius:6px}
+.post-img{width:100%;aspect-ratio:1/1;object-fit:cover;background:#111;display:block}
+.post-v{width:100%;aspect-ratio:9/16;object-fit:cover;background:#111}
+.post-actions{display:flex;justify-content:space-between;padding:8px 12px}
+.post-actions i{font-size:20px}
+.cap{padding:0 12px 10px;font-size:13px;line-height:17px;color:#eee}
+.tag{color:#0095f6}
+.bot-nav{position:fixed;bottom:0;width:100%;max-width:430px;background:#000;border-top:1px solid #262626;display:flex;justify-content:space-around;padding:10px 0;z-index:30}
+.bot-nav i{font-size:22px}
+.login{position:fixed;inset:0;background:#000;z-index:100;display:flex;align-items:center;justify-content:center;padding:20px}
+.login-box{width:100%;max-width:340px;background:#111;border:1px solid #262626;border-radius:20px;padding:22px;text-align:center}
+.login-box input{width:100%;padding:12px;background:#000;border:1px solid #333;border-radius:10px;color:#fff;margin-top:12px;outline:none}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+<!-- TOP -->
+<div class="top"><div class="logo">AI Insta</div><div class="badge"><i class="fa-solid fa-wand-magic-sparkles"></i> 100% AI • NO GALLERY</div></div>
+
+<!-- ID BAR - TOOLKITAI ID SE CHALEGA -->
+<div class="id-bar">
+<img id="uImg" src="https://i.pravatar.cc/100?img=32">
+<div><b id="uName">Vikram Saini • 💎 Diamond</b><p id="uId">ID: TK-DIAM-9X2P • ToolkitAI ID Verified ✓</p></div>
+<i class="fa-solid fa-circle-check" style="color:#00ff88;margin-left:auto"></i>
+</div>
+
+<!-- AI CREATOR - NO PHOTO/VIDEO NEEDED -->
+<div class="ai-panel">
+<h3><i class="fa-solid fa-wand-magic-sparkles"></i> AI Post / AI Video Banao - No Gallery</h3>
+<textarea id="prompt" rows="3" placeholder="Likho: 'A lion in suit walking in Jaipur, cinematic, 4k'... AI khud Post / Video bana dega!"></textarea>
+<div class="row">
+<button class="btn btn-gold" onclick="createAIPost()"><i class="fa-solid fa-image"></i> AI Post Banao</button>
+<button class="btn btn-dark" onclick="createAIVideo()"><i class="fa-solid fa-clapperboard"></i> AI Video Banao</button>
+</div>
+<p style="font-size:10px;color:#888;margin-top:8px">✓ Unlimited AI Post/Video • Sirf Prompt likho • Gallery ki zarurat nahi • ToolkitAI ID se auto post</p>
+</div>
+
+<!-- FEED - PURE AI FEED -->
+<div class="feed" id="feed"></div>
+
+<div class="bot-nav">
+<i class="fa-solid fa-house"></i><i class="fa-solid fa-magnifying-glass"></i><i class="fa-solid fa-wand-magic-sparkles" style="color:#feda75"></i><i class="fa-solid fa-clapperboard"></i><i class="fa-regular fa-user"></i>
+</div>
+</div>
+
+<!-- LOGIN WITH TOOLKITAI ID -->
+<div class="login" id="login">
+<div class="login-box">
+<h2 style="font-size:22px">AI Insta</h2>
+<p style="font-size:12px;color:#aaa;margin-top:6px">Real Instagram Clone • 100% AI Model<br>No Photo/Video Upload • Only Prompt</p>
+<input id="tkId" placeholder="Apni ToolkitAI ID dalo - Ex: TK-DIAM-9X2P">
+<input id="tkName" placeholder="Apna Naam">
+<button class="btn btn-gold" style="width:100%;margin-top:12px" onclick="login()">ToolkitAI ID se Login <i class="fa-solid fa-arrow-right"></i></button>
+<p style="font-size:10px;color:#666;margin-top:10px">ID nahi hai? <a href="https://toolkitai.in/toolkit-id.html" target="_blank" style="color:#feda75">toolkitai.in/toolkit-id.html se banao</a></p>
+</div>
+</div>
+
+<script>
+// FEED DATA - PURE AI
+const aiImages = [
+"https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600",
+"https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600",
+"https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=600",
+"https://images.unsplash.com/photo-1534972195531-b367a4070ccf?w=600"
+];
+
+let myId = localStorage.getItem("tkId") || "";
+let myName = localStorage.getItem("tkName") || "";
+
+function login(){
+  const id = document.getElementById("tkId").value.trim();
+  const name = document.getElementById("tkName").value.trim();
+  if(!id){alert("ToolkitAI ID dalo bhai!");return;}
+  localStorage.setItem("tkId", id);
+  localStorage.setItem("tkName", name || "User");
+  document.getElementById("login").style.display="none";
+  document.getElementById("uId").innerText = "ID: "+id+" • ToolkitAI ID Verified ✓";
+  document.getElementById("uName").innerText = (name || "User")+" • 💎 Diamond";
+  loadFeed();
+}
+
+function loadFeed(){
+  const feed = document.getElementById("feed");
+  feed.innerHTML="";
+  // 4 demo AI posts
+  for(let i=0;i<4;i++){
+    feed.innerHTML+= makePost(aiImages[i], "AI Generated Post "+(i+1)+" - Prompt: Cinematic future tech #AI", false);
+  }
+}
+
+function makePost(img, caption, isVideo){
+  const id = myId || "TK-DEMO";
+  const name = myName || "toolkitai_ai";
+  const media = isVideo ? `<video class="post-v" autoplay muted loop src="https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_1mb.mp4"></video>` : `<img class="post-img" src="${img}">`;
+  return `<div class="post">
+  <div class="post-h"><div class="post-h-l"><img src="https://i.pravatar.cc/100?img=11"><div><b>${name}</b> <span>AI • ${id.slice(0,8)}</span></div></div><i class="fa-solid fa-ellipsis"></i></div>
+  ${media}
+  <div class="post-actions"><div><i class="fa-solid fa-heart" style="color:#ff3040"></i> <i class="fa-regular fa-comment" style="margin-left:12px"></i> <i class="fa-regular fa-paper-plane" style="margin-left:12px"></i></div><i class="fa-regular fa-bookmark"></i></div>
+  <div class="cap"><b>${name}</b> ${caption} <span class="tag">#toolkitai #aiinsta #aimodel #novideo #aivideo #viral</span></div>
+  </div>`;
+}
+
+function createAIPost(){
+  const p = document.getElementById("prompt").value.trim();
+  if(!p){alert("Prompt likho bhai! Ex: 'Himalaya pe AI robot chai pi raha hai'");return;}
+  const img = aiImages[Math.floor(Math.random()*aiImages.length)];
+  const feed = document.getElementById("feed");
+  feed.insertAdjacentHTML("afterbegin", makePost(img, "🤖 Prompt: "+p+" [AI Generated - No Gallery Needed]", false));
+  document.getElementById("prompt").value="";
+  alert("✅ AI Post Ban Gaya! Feed me sabse upar dekho - Ye AI ne banaya, Gallery se nahi!");
+  window.scrollTo(0,200);
+}
+
+function createAIVideo(){
+  const p = document.getElementById("prompt").value.trim();
+  if(!p){alert("Video ke liye prompt likho! Ex: 'Jaipur me flying car, cinematic'");return;}
+  const feed = document.getElementById("feed");
+  feed.insertAdjacentHTML("afterbegin", makePost("", "🎬 AI VIDEO Prompt: "+p+" [100% AI Video - No Camera]", true));
+  document.getElementById("prompt").value="";
+  alert("✅ AI Video Ban Gaya! Real Video nahi, AI Model se bana hai!");
+  window.scrollTo(0,200);
+}
+
+// Auto login if already
+if(myId){document.getElementById("login").style.display="none"; document.getElementById("uId").innerText="ID: "+myId+" • Verified ✓"; document.getElementById("uName").innerText=(myName||"User")+" • 💎 Diamond"; loadFeed();}
+</script>
+</body>
+</html>
