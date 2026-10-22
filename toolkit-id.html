@@ -3,15 +3,15 @@
 <title>ToolkitAI ID</title>
 <style>
 *{box-sizing:border-box;font-family:system-ui}body{margin:0;background:#000;color:#fff}
-.header{background:#111;padding:14px;text-align:center;border-bottom:1px solid #222;position:sticky;top:0}
+.header{background:#111;padding:14px;text-align:center;border-bottom:1px solid #222}
 .tabs{display:flex;gap:8px;padding:12px;max-width:500px;margin:0 auto}
 .tab{flex:1;padding:12px;border-radius:12px;text-align:center;font-weight:800;cursor:pointer;border:1px solid #222;background:#151515;font-size:13px}
 .tab.active{background:#fff;color:#000}.wrap{max-width:500px;margin:0 auto;padding:0 12px 30px}
 .card{background:#111;border:1px solid #222;border-radius:18px;padding:18px;margin-top:12px}
-input,select{width:100%;padding:13px;margin:6px 0;border-radius:10px;border:1px solid #333;background:#000;color:#fff}
-.btn{width:100%;padding:13px;margin-top:10px;border-radius:11px;border:none;font-weight:900;cursor:pointer}
+input,select{width:100%;padding:13px;margin:6px 0;border-radius:10px;border:1px solid #333;background:#000;color:#fff;font-size:15px}
+.btn{width:100%;padding:14px;margin-top:10px;border-radius:11px;border:none;font-weight:900;cursor:pointer;font-size:15px}
 .btn-white{background:#fff;color:#000}.btn-blue{background:#4285F4;color:#fff}
-#idCard{display:none;background:#fff;color:#000;border-radius:18px;padding:20px;text-align:center;margin-top:12px}
+#idCard{display:none;background:#fff;color:#000;border-radius:18px;padding:22px;text-align:center;margin-top:12px}
 iframe{width:100%;height:750px;border:none;border-radius:12px;background:#fff}
 </style></head><body>
 <div class="header"><h2 style="margin:0">🪪 ToolkitAI ID</h2><small style="color:#888">Official - Fresher to Diamond</small></div>
@@ -21,20 +21,49 @@ iframe{width:100%;height:750px;border:none;border-radius:12px;background:#fff}
 </div>
 <div class="wrap">
 <div id="boxApp" class="card">
-<input id="name" placeholder="Pura Naam *">
-<input id="mob" placeholder="Mobile Number *">
-<input id="city" placeholder="City * ex: Bhilwara">
-<select id="work"><option value="">Working Field *</option><option>Student</option><option>Business</option><option>Job</option><option>Freelancer</option></select>
-<select id="cat"><option value="">Category *</option><option>Fresher Category</option><option>Silver Category</option><option>Golden Category</option><option>Platinum Category</option><option>Diamond Category</option></select>
+<input id="inpName" placeholder="Pura Naam *">
+<input id="inpMob" placeholder="Mobile Number *">
+<input id="inpCity" placeholder="City * ex: Bhilwara">
+<select id="inpWork"><option value="">Working Field *</option><option>Student</option><option>Business</option><option>Job</option><option>Freelancer</option><option>Other</option></select>
+<select id="inpCat"><option value="">Category *</option><option>Fresher Category</option><option>Silver Category</option><option>Golden Category</option><option>Platinum Category</option><option>Diamond Category</option></select>
 <button class="btn btn-white" onclick="makeID()">ID Generate Karo ✅</button>
 </div>
 <div id="boxGoogle" class="card" style="display:none">
 <a href="https://docs.google.com/forms/d/e/1FAIpQLSdlnKrVnSNln0ferI6M9jpVpJWAeGL22q2Tdw6XBZDYWGHkWA/viewform" target="_blank"><button class="btn btn-blue">Google Form Kholo 📝</button></a>
 <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdlnKrVnSNln0ferI6M9jpVpJWAeGL22q2Tdw6XBZDYWGHkWA/viewform?embedded=true" style="margin-top:12px"></iframe>
 </div>
-<div id="idCard"><h2 id="cName"></h2><p id="cInfo" style="color:#666;font-size:13px"></p><div style="margin:14px 0"><span id="tid" style="background:#000;color:#fff;padding:10px 18px;border-radius:10px;font-weight:900;font-size:18px"></span></div><button class="btn btn-white" style="border:1px solid #ddd" onclick="location.reload()">Nayi ID</button></div>
+<div id="idCard">
+<h2 id="cName" style="margin:0"></h2>
+<p id="cInfo" style="color:#666;font-size:13px;margin:8px 0"></p>
+<div style="margin:16px 0"><span id="tid" style="background:#000;color:#fff;padding:12px 20px;border-radius:10px;font-weight:900;font-size:20px;display:inline-block"></span></div>
+<div style="background:#f2f2f2;padding:10px;border-radius:8px;font-size:12px"><b>Verify:</b> toolkitai.in/verify?id=<span id="vId"></span></div>
+<p style="font-size:13px;margin-top:12px">🎉 <b>Vikram Saini</b> aapka Diamond ID ban gaya!</p>
+<button class="btn btn-white" style="border:1px solid #ddd" onclick="location.reload()">Nayi ID Banao</button>
+</div>
 </div>
 <script>
-function showTab(t){document.getElementById('boxApp').style.display=t=='app'?'block':'none';document.getElementById('boxGoogle').style.display=t=='google'?'block':'none';document.getElementById('idCard').style.display='none';document.getElementById('tabApp').classList.toggle('active',t=='app');document.getElementById('tabGoogle').classList.toggle('active',t=='google')}
-function makeID(){let n=name.value.trim(),m=mob.value.trim(),c=city.value.trim(),w=work.value,k=cat.value;if(!n||!m||!c||!w||!k){alert('Saare * bharo');return}let id='TK-'+m.slice(-4)+'-'+Math.floor(Math.random()*9000+1000);cName.textContent=n;cInfo.textContent=c+' | '+w+' | '+k;tid.textContent=id;boxApp.style.display='none';boxGoogle.style.display='none';idCard.style.display='block'}
+function showTab(t){
+document.getElementById('boxApp').style.display=t=='app'?'block':'none';
+document.getElementById('boxGoogle').style.display=t=='google'?'block':'none';
+document.getElementById('idCard').style.display='none';
+document.getElementById('tabApp').classList.toggle('active',t=='app');
+document.getElementById('tabGoogle').classList.toggle('active',t=='google');
+}
+function makeID(){
+let n=document.getElementById('inpName').value.trim();
+let m=document.getElementById('inpMob').value.trim();
+let c=document.getElementById('inpCity').value.trim();
+let w=document.getElementById('inpWork').value;
+let k=document.getElementById('inpCat').value;
+if(!n||!m||!c||!w||!k){alert('Saare * wale fields bharo bhai!');return;}
+let id='TK-'+m.slice(-4)+'-'+Math.floor(Math.random()*9000+1000);
+document.getElementById('cName').innerText=n;
+document.getElementById('cInfo').innerText=c+' | '+w+' | '+k;
+document.getElementById('tid').innerText=id;
+document.getElementById('vId').innerText=id;
+document.getElementById('boxApp').style.display='none';
+document.getElementById('boxGoogle').style.display='none';
+document.getElementById('idCard').style.display='block';
+window.scrollTo(0,0);
+}
 </script></body></html>
