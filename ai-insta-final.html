@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Insta - ToolkitAI</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI'}
+body{background:#000;color:#fff;display:flex;justify-content:center}
+.app{width:100%;max-width:430px;background:#000;min-height:100vh;position:relative}
+.top{height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;border-bottom:1px solid #262626;position:sticky;top:0;background:#000;z-index:20}
+.top b{font-family:cursive;font-size:28px;background:linear-gradient(45deg,#feda75,#fa7e1e,#d62976);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.ai-box{margin:12px;background:#0a0a0a;border:1px solid #262626;border-radius:14px;padding:12px}
+.ai-box textarea{width:100%;background:#000;border:1px solid #333;border-radius:10px;padding:10px;color:#fff;outline:none}
+.btns{display:flex;gap:8px;margin-top:8px}
+.btn{flex:1;padding:11px;border:none;border-radius:10px;font-weight:700;cursor:pointer}
+.gold{background:#fff;color:#000}
+.dark{background:#262626;color:#fff}
+#loader{display:none;text-align:center;padding:10px;color:#feda75;font-size:12px}
+#timer{display:none;text-align:center;padding:8px;color:#ff3040;font-size:12px;font-weight:700;background:#1a0000;border-radius:8px;margin-top:8px}
+.post{border-bottom:1px solid #262626}
+.post-h{padding:10px 12px;display:flex;justify-content:space-between;align-items:center}
+.post-h-l{display:flex;align-items:center;gap:8px}
+.post-h-l img{width:32px;height:32px;border-radius:50%}
+.post-img{width:100%;aspect-ratio:1/1;object-fit:cover;background:#111;display:block}
+.post-actions{padding:10px 12px;display:flex;justify-content:space-between}
+.post-actions i{font-size:22px;cursor:pointer}
+.likes{padding:0 12px;font-weight:600;font-size:14px}
+.cap{padding:4px 12px 14px;font-size:13px}
+.bot-nav{position:fixed;bottom:0;width:100%;max-width:430px;height:52px;background:#000;border-top:1px solid #262626;display:flex;justify-content:space-around;align-items:center;z-index:30}
+.bot-nav div{flex:1;text-align:center;cursor:pointer}
+.liked{color:#ff3040 !important}
+</style>
+</head>
+<body>
+<div class="app">
+<div class="top"><b>AI Insta</b><div><i class="fa-regular fa-heart"></i><i class="fa-regular fa-paper-plane" style="margin-left:14px"></i></div></div>
+<div class="ai-box">
+<textarea id="prompt" rows="2" placeholder="Likho: 'helicopter me beta hua dikha, cinematic 4k'"></textarea>
+<div id="loader"><i class="fa-solid fa-spinner fa-spin"></i> AI bana raha hai...</div>
+<div id="timer">⏳ 45 sec rukna padega! <span id="countdown">45</span>s</div>
+<div class="btns"><button class="btn gold" onclick="makeAI()">+ AI POST</button><button class="btn dark" onclick="makeAI()">AI REEL</button></div>
+<p style="font-size:9px;color:#666;margin-top:6px">AI Insta - Alag Page - toolkitai.in pe nahi khulega</p>
+</div>
+<div id="feed"></div>
+<div class="bot-nav">
+<div><i class="fa-solid fa-house"></i><div style="font-size:9px">Home</div></div>
+<div><i class="fa-solid fa-magnifying-glass"></i><div style="font-size:9px">Search</div></div>
+<div><i class="fa-solid fa-wand-magic-sparkles" style="color:#feda75"></i><div style="font-size:9px">AI</div></div>
+<div><i class="fa-solid fa-clapperboard"></i><div style="font-size:9px">Reels</div></div>
+<div><i class="fa-regular fa-user"></i><div style="font-size:9px">Profile</div></div>
+</div>
+</div>
+<script>
+let myDP="https://i.pravatar.cc/100?img=32";
+let lastTime=parseInt(localStorage.getItem("lastAI")||"0");
+function postHTML(img,caption,tag){
+ return `<div class="post"><div class="post-h"><div class="post-h-l"><img src="${myDP}"><b>VIKRAM SAINI</b></div><i class="fa-solid fa-ellipsis"></i></div><img class="post-img" src="${img}"><div class="post-actions"><div><i class="fa-regular fa-heart" onclick="this.classList.toggle('liked');this.classList.toggle('fa-solid');this.classList.toggle('fa-regular')"></i><i class="fa-regular fa-comment" style="margin-left:14px"></i><i class="fa-regular fa-paper-plane" style="margin-left:14px"></i></div><i class="fa-regular fa-bookmark"></i></div><div class="likes">${Math.floor(Math.random()*200+50)} likes</div><div class="cap"><b>vikram_saini</b> ${caption} <span style="color:#888">${tag}</span></div></div>`;
+}
+function makeAI(){
+ let p=document.getElementById("prompt").value.trim();
+ if(!p){alert("Prompt likho!");return;}
+ let now=Date.now();
+ let diff=Math.floor((now-lastTime)/1000);
+ if(diff < 45){
+   let left=45-diff;
+   document.getElementById("timer").style.display="block";
+   let c=left;
+   let interval=setInterval(()=>{c--;document.getElementById("countdown").innerText=c;if(c<=0){clearInterval(interval);document.getElementById("timer").style.display="none";}},1000);
+   createWithBackup(p); return;
+ }
+ document.getElementById("loader").style.display="block";
+ let seed=Math.floor(Math.random()*99999);
+ let enc=encodeURIComponent(p+", cinematic, 4k, photorealistic");
+ let url=`https://image.pollinations.ai/prompt/${enc}?width=600&height=600&seed=${seed}&model=turbo&nologo=true`;
+ let img=new Image();
+ img.onload=()=>{document.getElementById("feed").insertAdjacentHTML("afterbegin",postHTML(url,p,"#real-ai"));lastTime=Date.now();localStorage.setItem("lastAI",lastTime);document.getElementById("loader").style.display="none";document.getElementById("prompt").value="";};
+ img.onerror=()=>{createWithBackup(p);};
+ img.src=url;
+ setTimeout(()=>{if(document.getElementById("loader").style.display=="block"){createWithBackup(p);}},7000);
+}
+function createWithBackup(p){
+ document.getElementById("loader").style.display="block";
+ let seed=Math.floor(Math.random()*99999);
+ let keywords=encodeURIComponent(p.split(" ").slice(0,2).join(","));
+ let backupUrls=[`https://source.unsplash.com/600x600/?${keywords}&sig=${seed}`,`https://picsum.photos/seed/${seed}/600/600`, `https://loremflickr.com/600/600/${keywords}?lock=${seed}`];
+ let url=backupUrls[Math.floor(Math.random()*backupUrls.length)];
+ document.getElementById("feed").insertAdjacentHTML("afterbegin",postHTML(url,p,`#backup - 45s baad Real AI`));
+ document.getElementById("loader").style.display="none";
+ document.getElementById("prompt").value="";
+ if(lastTime===0){lastTime=Date.now();localStorage.setItem("lastAI",lastTime);}
+}
+window.onload=()=>{document.getElementById("feed").innerHTML=postHTML("https://picsum.photos/seed/finalfix/600/600","AI Insta Alag Ho Gaya! Ab ye sirf ai-insta-final.html pe khulega, toolkitai.in pe nahi! #toolkitai","#fixed");};
+</script>
+</body>
+</html>
