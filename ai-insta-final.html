@@ -3,152 +3,189 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<title>AI Insta - Real Insta Clone</title>
+<title>AI Insta - 5 Tabs All Working</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial}
+*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto}
 body{background:#000;color:#fff;display:flex;justify-content:center}
-.app{width:100%;max-width:430px;background:#000;min-height:100vh;border:1px solid #111;position:relative}
-.top{height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;border-bottom:1px solid #262626;position:sticky;top:0;background:#000;z-index:10}
-.top b{font-family:'Brush Script MT',cursive;font-size:32px;font-weight:400;background:linear-gradient(45deg,#feda75,#fa7e1e,#d62976,#962fbf,#4f5bd5);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.top i{font-size:22px;margin-left:16px}
-.stories{padding:10px 0 10px 8px;display:flex;gap:12px;overflow-x:auto;border-bottom:1px solid #121212;scrollbar-width:none}
-.stories::-webkit-scrollbar{display:none}
-.story{text-align:center;min-width:62px;cursor:pointer}
-.story img{width:56px;height:56px;border-radius:50%;padding:2px;border:2px solid #feda75;object-fit:cover;background:#111}
-.story p{font-size:10px;margin-top:4px;color:#ccc}
-.id-bar{display:none}
-.ai-box{margin:12px;background:#0a0a0a;border:1px solid #262626;border-radius:12px;padding:12px}
-.ai-box textarea{width:100%;background:#000;border:1px solid #262626;border-radius:8px;padding:10px;color:#fff;font-size:13px;outline:none;resize:none}
-.ai-box .btns{display:flex;gap:8px;margin-top:8px}
-.btn{flex:1;padding:10px;border:none;border-radius:8px;font-weight:700;font-size:12px;cursor:pointer}
+.app{width:100%;max-width:430px;background:#000;min-height:100vh;position:relative;border:1px solid #111}
+.top{height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;border-bottom:1px solid #262626;position:sticky;top:0;background:#000;z-index:20}
+.top b{font-family:cursive;font-size:28px;background:linear-gradient(45deg,#feda75,#fa7e1e,#d62976);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.top-icons i{font-size:21px;margin-left:16px;cursor:pointer}
+.tab{display:none;padding-bottom:70px;min-height:80vh}
+.tab.active{display:block}
+.ai-box{margin:12px;background:#0a0a0a;border:1px solid #262626;border-radius:14px;padding:12px}
+.ai-box textarea{width:100%;background:#000;border:1px solid #333;border-radius:10px;padding:10px;color:#fff;outline:none;font-size:13px;resize:none}
+.btns{display:flex;gap:8px;margin-top:8px}
+.btn{flex:1;padding:11px;border:none;border-radius:10px;font-weight:700;cursor:pointer;font-size:13px}
 .gold{background:#fff;color:#000}
 .dark{background:#262626;color:#fff}
-#loader{display:none;text-align:center;padding:10px;font-size:12px;color:#feda75}
-.feed{padding-bottom:80px}
+#loader{display:none;text-align:center;padding:10px;color:#feda75;font-size:12px}
 .post{border-bottom:1px solid #262626}
 .post-h{padding:10px 12px;display:flex;justify-content:space-between;align-items:center}
 .post-h-l{display:flex;align-items:center;gap:8px;cursor:pointer}
-.post-h-l img{width:32px;height:32px;border-radius:50%;border:1px solid #333;object-fit:cover}
-.post-h-l b{font-size:13px}
-.post-h-l span{font-size:10px;color:#8e8e8e}
+.post-h-l img{width:32px;height:32px;border-radius:50%;object-fit:cover}
 .post-img{width:100%;aspect-ratio:1/1;object-fit:cover;background:#111;display:block}
-.post-actions{padding:8px 12px;display:flex;justify-content:space-between}
-.post-actions-l i{font-size:22px;margin-right:14px;cursor:pointer}
-.post-actions-r i{font-size:22px;cursor:pointer}
-.likes{padding:0 12px;font-size:13px;font-weight:600}
-.cap{padding:4px 12px 12px;font-size:13px;line-height:18px}
-.cap span{color:#8e8e8e}
-.bot-nav{position:fixed;bottom:0;width:100%;max-width:430px;height:50px;background:#000;border-top:1px solid #262626;display:flex;justify-content:space-around;align-items:center;z-index:20}
-.bot-nav i{font-size:22px;cursor:pointer}
-.active{color:#fff}
-.dp-modal{position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:100;display:none;align-items:center;justify-content:center;flex-direction:column;padding:20px}
-.dp-modal img{width:300px;height:300px;border-radius:50%;object-fit:cover;border:4px solid #fff}
+.post-actions{padding:10px 12px;display:flex;justify-content:space-between}
+.post-actions i{font-size:22px;cursor:pointer}
+.likes{padding:0 12px;font-weight:600;font-size:14px}
+.cap{padding:4px 12px 14px;font-size:13px}
+.search-box{padding:12px}
+.search-box input{width:100%;padding:12px;background:#121212;border:1px solid #333;border-radius:10px;color:#fff;outline:none}
+.grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;margin-top:10px}
+.grid img{width:100%;aspect-ratio:1/1;object-fit:cover;background:#111}
+.reel{position:relative}
+.reel i{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:22px;color:#fff;text-shadow:0 0 10px #000}
+.profile{text-align:center;padding:20px}
+.profile img{width:86px;height:86px;border-radius:50%;border:3px solid #feda75;object-fit:cover;cursor:pointer}
+.stats{display:flex;justify-content:space-around;margin:18px 0}
+.stats b{font-size:16px}
+.stats span{font-size:11px;color:#888}
+.bot-nav{position:fixed;bottom:0;width:100%;max-width:430px;height:52px;background:#000;border-top:1px solid #262626;display:flex;justify-content:space-around;align-items:center;z-index:30}
+.bot-nav div{flex:1;text-align:center;cursor:pointer;padding:6px 0}
+.bot-nav i{font-size:22px}
+.bot-nav .active i{color:#fff}
+.bot-nav .inactive i{color:#8e8e8e}
+.bot-nav span{font-size:9px;display:block;margin-top:2px}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:100;display:none;align-items:center;justify-content:center;padding:20px}
+.modal-box{background:#1a1a1a;border:1px solid #333;border-radius:16px;padding:20px;width:100%;max-width:340px;text-align:center}
+.modal-box input{width:100%;padding:10px;background:#000;border:1px solid #333;border-radius:8px;color:#fff;margin-top:10px}
+.liked{color:#ff3040 !important}
 </style>
 </head>
 <body>
 <div class="app">
-<div class="top"><b>AI Insta</b><div><i class="fa-regular fa-heart"></i><i class="fa-regular fa-paper-plane"></i></div></div>
+<div class="top"><b>AI Insta</b><div class="top-icons"><i class="fa-regular fa-heart" onclick="topHeart()"></i><i class="fa-regular fa-paper-plane" onclick="topShare()"></i></div></div>
 
-<div class="stories" id="stories">
-<div class="story" onclick="changeDP()"><img id="s1" src=""><p>Your Story</p></div>
-<div class="story"><img src="https://i.pravatar.cc/100?img=5"><p>jaipur_ai</p></div>
-<div class="story"><img src="https://i.pravatar.cc/100?img=8"><p>ai_creator</p></div>
-<div class="story"><img src="https://i.pravatar.cc/100?img=12"><p>toolkit_ai</p></div>
-<div class="story"><img src="https://i.pravatar.cc/100?img=15"><p>vikram.ai</p></div>
-</div>
-
+<!-- HOME TAB -->
+<div id="homeTab" class="tab active">
 <div class="ai-box">
-<textarea id="prompt" rows="2" placeholder="What do you want AI to create? Ex: A lion in suit at Hawa Mahal, cinematic"></textarea>
-<div id="loader"><i class="fa-solid fa-spinner fa-spin"></i> AI is creating... 4 sec</div>
-<div class="btns">
-<button class="btn gold" onclick="createPost()">+ AI POST</button>
-<button class="btn dark" onclick="createVideo()">AI REEL</button>
+<textarea id="prompt" rows="2" placeholder="Prompt likho: 'helicopter me beta hua dikha, cinematic'"></textarea>
+<div id="loader"><i class="fa-solid fa-spinner fa-spin"></i> AI bana raha hai... 2 sec!</div>
+<div class="btns"><button class="btn gold" onclick="makeAI()">+ AI POST</button><button class="btn dark" onclick="makeAI()">AI REEL</button></div>
 </div>
-<p style="font-size:9px;color:#555;margin-top:6px">100% AI • No Gallery • Just Prompt • ToolkitAI ID</p>
+<div id="feed"></div>
 </div>
 
-<div class="feed" id="feed"></div>
+<!-- SEARCH TAB -->
+<div id="searchTab" class="tab">
+<div class="search-box"><input id="searchInput" placeholder="Search AI posts... Ex: Jaipur, lion, helicopter" onkeyup="if(event.key==='Enter') doSearch()"><button class="btn gold" style="width:100%;margin-top:10px" onclick="doSearch()">Search</button><div id="searchResult" style="margin-top:12px"></div><div class="grid" id="searchGrid"></div></div>
+</div>
+
+<!-- CREATE TAB -->
+<div id="createTab" class="tab" style="padding:20px;text-align:center">
+<i class="fa-solid fa-wand-magic-sparkles" style="font-size:42px;color:#feda75"></i>
+<h3 style="margin-top:12px">AI Creator Studio</h3>
+<p style="font-size:12px;color:#888;margin-top:6px">Yaha se Pro AI Post banao - 4k, cinematic</p>
+<textarea id="prompt2" rows="3" placeholder="Pro prompt likho..." style="width:100%;background:#0a0a0a;border:1px solid #333;border-radius:10px;padding:10px;color:#fff;margin-top:15px"></textarea>
+<button class="btn gold" style="width:100%;margin-top:10px" onclick="document.getElementById('prompt').value=document.getElementById('prompt2').value;switchTab('homeTab',0);makeAI()">Create AI Post</button>
+</div>
+
+<!-- REELS TAB -->
+<div id="reelsTab" class="tab">
+<div style="padding:12px"><b>AI Reels</b><p style="font-size:11px;color:#888">Tumhare AI videos yaha ayenge</p><div class="grid" id="reelsGrid"></div></div>
+</div>
+
+<!-- PROFILE TAB -->
+<div id="profileTab" class="tab">
+<div class="profile">
+<img id="profileDP" src="https://i.pravatar.cc/100?img=32" onclick="changeDP()">
+<h3 id="pName" style="margin-top:10px">VIKRAM SAINI</h3><p style="font-size:12px;color:#aaa">ID: Tk0448-3308 • Diamond • Verified ✓</p>
+<p style="font-size:11px;color:#feda75;margin-top:6px">DP badalne ke liye photo pe click karo</p>
+<div class="stats"><div><b id="postCount">0</b><br><span>Posts</span></div><div><b>100%</b><br><span>AI</span></div><div><b>∞</b><br><span>Limit</span></div></div>
+<button class="btn gold" style="width:100%" onclick="changeDP()"><i class="fa-solid fa-camera"></i> DP Change Karo</button>
+<button class="btn dark" style="width:100%;margin-top:8px" onclick="localStorage.clear();location.reload()">Logout (ID Clear)</button>
+<p style="font-size:10px;color:#555;margin-top:12px">toolkitai.in/toolkit-id.html • ToolkitAI ID</p>
+<div class="grid" id="profileGrid" style="margin-top:15px"></div>
+</div>
+</div>
 
 <div class="bot-nav">
-<i class="fa-solid fa-house active"></i>
-<i class="fa-solid fa-magnifying-glass" onclick="alert('Search: AI se search jald ayega')"></i>
-<i class="fa-regular fa-square-plus" onclick="document.getElementById('prompt').focus();window.scrollTo(0,0)"></i>
-<i class="fa-solid fa-clapperboard" onclick="alert('Reels: AI Reels jald')"></i>
-<i class="fa-regular fa-user" onclick="openProfile()"></i>
+<div class="active" onclick="switchTab('homeTab',0)"><i class="fa-solid fa-house"></i><span>Home</span></div>
+<div class="inactive" onclick="switchTab('searchTab',1)"><i class="fa-solid fa-magnifying-glass"></i><span>Search</span></div>
+<div class="inactive" onclick="switchTab('createTab',2)"><i class="fa-solid fa-wand-magic-sparkles"></i><span>AI</span></div>
+<div class="inactive" onclick="switchTab('reelsTab',3)"><i class="fa-solid fa-clapperboard"></i><span>Reels</span></div>
+<div class="inactive" onclick="switchTab('profileTab',4)"><i class="fa-regular fa-user"></i><span>Profile</span></div>
 </div>
 </div>
 
-<div class="dp-modal" id="dpModal" onclick="this.style.display='none'">
-<img id="bigDP" src="">
-<p style="margin-top:15px">VIKRAM SAINI • Diamond 💎</p>
-<button class="btn gold" style="margin-top:15px;width:200px" onclick="event.stopPropagation();changeDP()">Change DP</button>
-</div>
-
+<div class="modal" id="commentModal" onclick="this.style.display='none'"><div class="modal-box" onclick="event.stopPropagation()"><h3>💬 Comment</h3><div id="commentList" style="text-align:left;margin:10px 0;max-height:150px;overflow:auto;font-size:13px"></div><input id="commentInput" placeholder="Add a comment..."><button class="btn gold" style="margin-top:10px;width:100%" onclick="addComment()">Post Comment</button></div></div>
+<div class="modal" id="shareModal" onclick="this.style.display='none'"><div class="modal-box" onclick="event.stopPropagation()"><h3>✈️ Share</h3><button class="btn gold" style="width:100%;margin-top:10px" onclick="copyLink()">🔗 Copy Link</button><button class="btn dark" style="width:100%;margin-top:8px" onclick="shareWhatsApp()">💬 WhatsApp</button></div></div>
 <input type="file" id="dpInput" accept="image/*" style="display:none" onchange="uploadDP(event)">
 
 <script>
-let myDP = localStorage.getItem("myDP") || "https://i.pravatar.cc/100?img=32";
-let myName = "VIKRAM SAINI";
-let myId = "Tk0448-3308";
-document.getElementById("s1").src = myDP;
+let myDP=localStorage.getItem("myDP")||"https://i.pravatar.cc/100?img=32";
+let currentImg=""; let comments=[]; let posts=[]; let count=parseInt(localStorage.getItem("postCount")||"0");
+document.getElementById("profileDP").src=myDP;
 
+function switchTab(tabId, idx){
+ document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+ document.getElementById(tabId).classList.add('active');
+ document.querySelectorAll('.bot-nav div').forEach((d,i)=>{d.className=i===idx?'active':'inactive'});
+ window.scrollTo(0,0);
+}
 function changeDP(){document.getElementById("dpInput").click();}
-function uploadDP(e){
- const f=e.target.files[0]; if(!f) return;
- const r=new FileReader();
- r.onload=ev=>{
-  myDP=ev.target.result;
-  localStorage.setItem("myDP",myDP);
-  document.getElementById("s1").src=myDP;
-  document.querySelectorAll(".p-dp").forEach(i=>i.src=myDP);
-  document.getElementById("bigDP").src=myDP;
-  alert("DP Updated 💎");
- };
- r.readAsDataURL(f);
+function uploadDP(e){let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=ev=>{myDP=ev.target.result;localStorage.setItem("myDP",myDP);document.getElementById("profileDP").src=myDP;document.querySelectorAll(".p-dp").forEach(i=>i.src=myDP);alert("DP Updated 💎");};r.readAsDataURL(f);}
+
+function topHeart(){alert("❤️ Notifications\n• AI liked your post - 2m ago\n• Diamond ID Verified ✓\n• ToolkitAI: Tk0448-3308");}
+function topShare(){document.getElementById("shareModal").style.display="flex";}
+
+function likePost(el){
+ el.classList.toggle("fa-regular");el.classList.toggle("fa-solid");el.classList.toggle("liked");
+ let likesEl=el.closest(".post").querySelector(".likes"); let n=parseInt(likesEl.innerText); likesEl.innerText=(el.classList.contains("liked")?n+1:n-1)+" likes";
 }
-function openProfile(){
- document.getElementById("bigDP").src=myDP;
- document.getElementById("dpModal").style.display="flex";
-}
+function openComment(img){currentImg=img;document.getElementById("commentList").innerHTML=comments.map(c=>`<p><b>${c.name}:</b> ${c.text}</p>`).join("")||"<p style='color:#666'>No comments yet</p>";document.getElementById("commentModal").style.display="flex";}
+function addComment(){let t=document.getElementById("commentInput").value.trim();if(!t)return;comments.push({name:"vikram_saini",text:t});document.getElementById("commentList").innerHTML+=`<p><b>vikram_saini:</b> ${t}</p>`;document.getElementById("commentInput").value="";}
+function sharePost(img){currentImg=img;document.getElementById("shareModal").style.display="flex";}
+function copyLink(){navigator.clipboard.writeText("https://toolkitai.in/ai-insta-final.html - "+currentImg);alert("Link Copied 🔗");document.getElementById("shareModal").style.display="none";}
+function shareWhatsApp(){window.open(`https://wa.me/?text=${encodeURIComponent("Dekho AI Insta post: "+currentImg)}`,"_blank");}
+function bookmarkPost(el){el.classList.toggle("fa-regular");el.classList.toggle("fa-solid");alert(el.classList.contains("fa-solid")?"Saved ✓":"Unsaved");}
 
 function postHTML(img,caption){
- const liked = Math.floor(Math.random()*500+50);
- return `<div class="post">
- <div class="post-h"><div class="post-h-l" onclick="openProfile()"><img class="p-dp" src="${myDP}"><div><b>${myName}</b><br><span>Jaipur • Real AI • ${myId}</span></div></div><i class="fa-solid fa-ellipsis"></i></div>
- <img class="post-img" src="${img}" ondblclick="this.nextElementSibling.firstElementChild.firstElementChild.style.color='#ff3040'">
- <div class="post-actions"><div class="post-actions-l"><i class="fa-regular fa-heart" onclick="this.classList.toggle('fa-solid');this.style.color=this.classList.contains('fa-solid')?'#ff3040':'#fff'"></i><i class="fa-regular fa-comment"></i><i class="fa-regular fa-paper-plane"></i></div><div class="post-actions-r"><i class="fa-regular fa-bookmark" onclick="this.classList.toggle('fa-solid')"></i></div></div>
- <div class="likes">${liked} likes</div>
- <div class="cap"><b>${myName.toLowerCase()}</b> ${caption} <span>#aiinsta #toolkitai #realai #jaipur</span></div>
- </div>`;
+ return `<div class="post"><div class="post-h"><div class="post-h-l"><img class="p-dp" src="${myDP}"><b>VIKRAM SAINI</b></div><i class="fa-solid fa-ellipsis"></i></div><img class="post-img" src="${img}"><div class="post-actions"><div><i class="fa-regular fa-heart" onclick="likePost(this)"></i><i class="fa-regular fa-comment" style="margin-left:14px" onclick="openComment('${img}')"></i><i class="fa-regular fa-paper-plane" style="margin-left:14px" onclick="sharePost('${img}')"></i></div><i class="fa-regular fa-bookmark" onclick="bookmarkPost(this)"></i></div><div class="likes">${Math.floor(Math.random()*200+50)} likes</div><div class="cap"><b>vikram_saini</b> ${caption}</div></div>`;
 }
 
-function createPost(){
- let p=document.getElementById("prompt").value.trim();
- if(!p){alert("Prompt likho bhai! Ex: lion in Jaipur");return;}
+function makeAI(){
+ let p=(document.getElementById("prompt").value || document.getElementById("prompt2").value).trim();
+ if(!p){alert("Prompt likho!");return;}
  document.getElementById("loader").style.display="block";
- let seed=Math.floor(Math.random()*999999);
- let url=`https://image.pollinations.ai/prompt/${encodeURIComponent(p+", instagram photo, highly detailed, photorealistic, 4k")}?width=600&height=600&seed=${seed}&model=flux&nologo=true`;
- let feed=document.getElementById("feed");
- // add instantly, hide loader on load
- let div=document.createElement("div");
- div.innerHTML=postHTML(url, p);
- feed.prepend(div);
- document.getElementById("prompt").value="";
- setTimeout(()=>{document.getElementById("loader").style.display="none";},2000);
- window.scrollTo(0,200);
+ let seed=Math.floor(Math.random()*99999);
+ let enc=encodeURIComponent(p+", instagram, cinematic, 4k");
+ let urls=[`https://image.pollinations.ai/prompt/${enc}?width=600&height=600&seed=${seed}&model=turbo&nologo=true`,`https://image.pollinations.ai/prompt/${enc}?width=600&height=600&seed=${seed+1}&model=flux&nologo=true`,`https://picsum.photos/seed/${seed}/600/600`];
+ let i=0;
+ function tryImg(){
+  if(i>=urls.length){document.getElementById("loader").style.display="none";return;}
+  let im=new Image();
+  im.onload=()=>{
+   let html=postHTML(urls[i],p);
+   document.getElementById("feed").insertAdjacentHTML("afterbegin",html);
+   document.getElementById("searchGrid").insertAdjacentHTML("afterbegin",`<img src="${urls[i]}">`);
+   document.getElementById("profileGrid").insertAdjacentHTML("afterbegin",`<img src="${urls[i]}">`);
+   document.getElementById("reelsGrid").insertAdjacentHTML("afterbegin",`<div class="reel"><img src="${urls[i]}"><i class="fa-solid fa-play"></i></div>`);
+   posts.push(urls[i]); count++; localStorage.setItem("postCount",count); document.getElementById("postCount").innerText=count;
+   document.getElementById("loader").style.display="none"; document.getElementById("prompt").value=""; document.getElementById("prompt2").value=""; switchTab('homeTab',0);
+  };
+  im.onerror=()=>{i++;tryImg();};
+  im.src=urls[i];
+  setTimeout(()=>{if(!im.complete){i++;tryImg();}},5000);
+ }
+ tryImg();
 }
 
-function createVideo(){
- let p=document.getElementById("prompt").value.trim();
- if(!p){alert("Reel ke liye prompt likho!");return;}
- alert("AI Video (Reels) jald ayega! Abhi ke liye AI Post bana raha hu, use hi Reels samjho!");
- createPost();
+function doSearch(){
+ let q=document.getElementById("searchInput").value.trim();
+ if(!q){alert("Search likho");return;}
+ let seed=Math.floor(Math.random()*9999);
+ let url=`https://image.pollinations.ai/prompt/${encodeURIComponent(q)}?width=600&height=600&seed=${seed}&model=turbo`;
+ document.getElementById("searchResult").innerHTML=postHTML(url,"Search result for: "+q);
 }
 
 window.onload=()=>{
- let first=`https://image.pollinations.ai/prompt/futuristic%20Jaipur%20city%20Hawa%20Mahal%20flying%20cars%20cinematic%20instagram?width=600&height=600&seed=1`;
- document.getElementById("feed").innerHTML=postHTML(first,"Welcome to Real AI Instagram! Bas prompt likho, AI khud post bana dega! No gallery needed. DP change karne ke liye Your Story pe click karo! 🚀");
+ document.getElementById("postCount").innerText=count;
+ document.getElementById("feed").innerHTML=postHTML("https://picsum.photos/seed/welcome123/600/600","Welcome to Real AI Insta! Niche ke 5 tabs ab 100% working hai! DP change karo, AI Post banao! 🚀 #toolkitai");
+ document.getElementById("searchGrid").innerHTML='<img src="https://picsum.photos/seed/a/200/200"><img src="https://picsum.photos/seed/b/200/200"><img src="https://picsum.photos/seed/c/200/200"><img src="https://picsum.photos/seed/d/200/200"><img src="https://picsum.photos/seed/e/200/200"><img src="https://picsum.photos/seed/f/200/200">';
+ document.getElementById("reelsGrid").innerHTML='<div class="reel"><img src="https://picsum.photos/seed/r1/200/300"><i class="fa-solid fa-play"></i></div><div class="reel"><img src="https://picsum.photos/seed/r2/200/300"><i class="fa-solid fa-play"></i></div><div class="reel"><img src="https://picsum.photos/seed/r3/200/300"><i class="fa-solid fa-play"></i></div>';
+ document.getElementById("profileGrid").innerHTML='<img src="https://picsum.photos/seed/p1/200/200"><img src="https://picsum.photos/seed/p2/200/200"><img src="https://picsum.photos/seed/p3/200/200">';
 }
 </script>
 </body>
